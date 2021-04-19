@@ -22,7 +22,7 @@ class CreateSuppliersTable extends Migration
             $table->integer('mobile_number');
             $table->integer('alternative_mobile_number')->nullable();
             $table->integer('nid_number')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

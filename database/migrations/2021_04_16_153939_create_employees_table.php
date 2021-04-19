@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('alternative_mobile_number')->nullable();
             $table->string('image')->nullable();
             $table->string('joining_date')->nullable();
-            $table->string('salary');
+            $table->float('salary');
             $table->string('nid_card')->nullable();
             $table->string('certificate')->nullable();
             $table->timestamps();

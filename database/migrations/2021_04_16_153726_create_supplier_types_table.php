@@ -16,7 +16,7 @@ class CreateSupplierTypesTable extends Migration
         Schema::create('supplier_types', function (Blueprint $table) {
             $table->id();
             $table->string('supplier_type');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

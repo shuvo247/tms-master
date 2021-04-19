@@ -15,6 +15,8 @@ class CreateCreateTextMessagesTable extends Migration
     {
         Schema::create('create_text_messages', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->longText('message_body');
             $table->timestamps();
         });
     }

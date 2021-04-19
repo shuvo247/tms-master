@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->integer('added_by');
             $table->string('image')->nullable();
-            $table->integer('pcs_per_box');
+            $table->float('pcs_per_box');
             $table->float('purchase_price');
             $table->float('sell_price');
             $table->integer('product_variant')->comment('1 = Yes, 0 = No');

@@ -19,10 +19,10 @@ class CreateProductStocksTable extends Migration
             $table->string('variant_value_id');
             $table->string('sku');
             $table->float('price');
-            $table->string('qty_in_sft');
-            $table->string('sft_sell');
-            $table->string('box_sell');
-            $table->string('barcode');
+            $table->float('qty_in_sft');
+            $table->float('sft_sell');
+            $table->float('box_sell');
+            $table->float('barcode');
             $table->timestamps();
         });
     }

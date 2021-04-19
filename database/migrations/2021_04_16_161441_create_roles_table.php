@@ -16,14 +16,13 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('role_name');
-            $table->integer('sales');
-            $table->integer('purchase');
-            $table->integer('purchase_order');
-            $table->integer('accounts');
-            $table->integer('messaging');
-            $table->integer('report');
-            $table->integer('product');
-            $table->integer('register');
+            $table->integer('sales')->comment('1 = yes, 2 = no');
+            $table->integer('purchase')->comment('1 = yes, 2 = no');
+            $table->integer('accounts')->comment('1 = yes, 2 = no');
+            $table->integer('messaging')->comment('1 = yes, 2 = no');
+            $table->integer('report')->comment('1 = yes, 2 = no');
+            $table->integer('product')->comment('1 = yes, 2 = no');
+            $table->integer('register')->comment('1 = yes, 2 = no');
             $table->timestamps();
         });
     }

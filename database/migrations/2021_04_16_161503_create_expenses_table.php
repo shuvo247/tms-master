@@ -19,7 +19,7 @@ class CreateExpensesTable extends Migration
             $table->integer('expense_category_id');
             $table->integer('payment_method_id');
             $table->string('account_information');
-            $table->longText('note');
+            $table->text('note');
             $table->timestamps();
         });
     }

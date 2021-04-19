@@ -20,10 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('email')->unique();
             $table->integer('phone_number');
-            $table->integer('alternative_phone_number');
-            $table->string('nid_card');
+            $table->integer('alternative_phone_number')->nullable();
+            $table->integer('nid_card');
             $table->string('joining_date');
-            $table->integer('salary');
+            $table->float('salary');
             $table->string('image')->nullable();
             $table->string('certificate')->nullable();
             $table->timestamps();

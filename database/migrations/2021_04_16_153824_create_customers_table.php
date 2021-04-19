@@ -15,13 +15,13 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->integer('refered_by');
+            $table->integer('refered_by')->nullable();
             $table->string('customer_name');
             $table->string('organization_name');
             $table->string('address');
             $table->integer('mobile_number');
-            $table->integer('alternative_mobile_number');
-            $table->string('nid_card');
+            $table->integer('alternative_mobile_number')->nullable();
+            $table->string('nid_card')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
