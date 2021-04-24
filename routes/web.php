@@ -16,3 +16,48 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+// Product Route Start 
+
+Route::group(['prefix'=>'category', 'as'=>'category.', 'middleware'=>['auth'] ],function(){
+    Route::get('/list', [
+        'uses'  =>'CategoryController@index',
+        'as'    =>'list'
+    ]);
+    Route::POST('/store',[
+        'uses'  => 'CategoryController@store',
+        'as'    => 'store'
+    ]);
+    Route::GET('/destroy',[
+        'uses'  => 'CategoryController@destroy',
+        'as'    => 'destroy'
+    ]);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
