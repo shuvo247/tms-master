@@ -35,6 +35,7 @@ class CreateProductsTable extends Migration
             $table->integer('purchase_from');
             $table->integer('payment_method_id');
             $table->integer('unit_id');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

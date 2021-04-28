@@ -27,8 +27,6 @@
 <!--chartjs -->
 <script src="{{asset('backend/assets/libs/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('backend/assets/js/pages/dashboards/dashboard-clasic.js')}}"></script>
-<script src="{{asset('backend/assets/extra-libs/DataTables/datatables.min.js')}}"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="{{asset('backend/assets/extra-libs/DataTables/datatables.min.js')}}"></script>>
 
 @yield('custom_scripts')

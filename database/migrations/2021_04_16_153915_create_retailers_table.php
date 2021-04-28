@@ -22,6 +22,7 @@ class CreateRetailersTable extends Migration
             $table->string('alternative_mobile_number')->nullable();
             $table->string('nid_card')->nullable();
             $table->string('image')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ class CreateDamagesTable extends Migration
             $table->float('damaged_box');
             $table->float('damaged_pcs');
             $table->float('damage_qty_in_sft');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

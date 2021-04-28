@@ -25,6 +25,7 @@ class CreatePurchasesTable extends Migration
             $table->text('discount_type')->comment('Flat, Percentage');
             $table->float('discount');
             $table->float('total');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

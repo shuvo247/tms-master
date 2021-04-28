@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Helpers\Helper;
+use App\Models\Brand;
 use Session;
-
-class CategoryController extends Controller
+use App\Helpers\Helper;
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderByDesc('id')->get();
-        return view('admin.pages.products.categories.list',compact('categories'));
+        $brands = Brand::orderByDesc('id')->get();
+        return view('admin.pages.products.brands.list',compact('brands'));
     }
 
     /**
@@ -39,14 +38,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'brand_name' => 'required|unique:brands'
         ]);
         try {
-            $category = new Category();
-            $category->category_name = $request->category_name;
-            $category->category_slug = Helper::makeSlug($request->category_name);
-            $category->save();
-            Session::flash('alert-success', 'Category created successfully!!');
+            $brand = new Brand();
+            $brand->brand_name = $request->brand_name;
+            $brand->brand_slug = Helper::makeSlug($request->brand_name);
+            $brand->save();
+            Session::flash('alert-success', 'Category brand successfully!!');
             return back();
            
         } catch (\Throwable $th) {
@@ -54,7 +53,6 @@ class CategoryController extends Controller
             return redirect()->back();
            
         }
-        
     }
 
     /**
@@ -89,19 +87,18 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'brand_name' => 'required|unique:brands'
         ]);
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->category_name = $request->category_name;
-            $category->update();
-            Session::flash('alert-success', 'Category updated successfully!!');
+            $brand = Brand::findOrFail($request->brand_id);
+            $brand->brand_name = $request->brand_name;
+            $brand->update();
+            Session::flash('alert-success', 'Brand updated successfully!!');
             return back();
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();
         }
-
     }
 
     /**
@@ -113,9 +110,9 @@ class CategoryController extends Controller
     public function destroy(Request $request)
     {
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->delete();
-            Session::flash('alert-danger', 'Category deleted successfully!!');
+            $brand = Brand::findOrFail($request->brand_id);
+            $brand->delete();
+            Session::flash('alert-danger', 'Brand deleted successfully!!');
             return back();
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');

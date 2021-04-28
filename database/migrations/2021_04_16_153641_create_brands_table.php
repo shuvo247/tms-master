@@ -17,6 +17,7 @@ class CreateBrandsTable extends Migration
             $table->id();
             $table->string('brand_name');
             $table->string('brand_slug');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

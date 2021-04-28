@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->float('salary')->nullable();
             $table->string('image')->nullable();
             $table->string('certificate')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

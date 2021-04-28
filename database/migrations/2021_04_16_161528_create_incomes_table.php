@@ -20,6 +20,7 @@ class CreateIncomesTable extends Migration
             $table->integer('payment_method_id');
             $table->string('account_information');
             $table->text('note');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

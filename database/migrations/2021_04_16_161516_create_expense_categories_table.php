@@ -17,6 +17,7 @@ class CreateExpenseCategoriesTable extends Migration
             $table->id();
             $table->string('expense_category_name');
             $table->string('expense_category_slug');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

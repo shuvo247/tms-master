@@ -30,8 +30,8 @@
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$category->category_name}}</td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#categoryEditModal" onclick="riseCategoryEditModal('{{$category->category_name}}','{{$category->id}}')"><i class="font-18 far fa-edit text-info"></i></a>
-                                        <a href="{{route('category.destroy',['category_id' => $category->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
+                                        <a href="/" data-toggle="modal" data-target="#categoryEditModal" onclick="riseCategoryEditModal('{{$category->category_name}}','{{$category->id}}')"><i class="font-18 far fa-edit text-info"></i></a>
+                                        <a href="{{route('product.category.destroy',['category_id' => $category->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
                                     </td>
                                 </tr>
                             @empty
@@ -46,8 +46,8 @@
         </div>
     </div>
 </div>
-@include('admin.pages.category.modals.add-category')
-@include('admin.pages.category.modals.edit-category')
+@include('admin.pages.products.categories.modals.add-category')
+@include('admin.pages.products.categories.modals.edit-category')
 @endsection
 @section('custom_styles')
 @endsection
@@ -55,12 +55,7 @@
 <script>
     $('#categoryTable').DataTable();
     function riseCategoryEditModal(category_name,id){
-        Swal.fire({
-            title: 'Error!',
-            text: 'Do you want to continue',
-            icon: 'error',
-            confirmButtonText: 'Cool'
-        });
+        $('#hiddenCategoryId').val(id);
        $('#categoryEditModal input[name="category_name"]').val(category_name);
     }
  </script>

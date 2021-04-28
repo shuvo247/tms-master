@@ -23,6 +23,7 @@ class CreateCustomersTable extends Migration
             $table->integer('alternative_mobile_number')->nullable();
             $table->string('nid_card')->nullable();
             $table->string('image')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

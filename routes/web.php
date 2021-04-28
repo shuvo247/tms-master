@@ -23,23 +23,100 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-
-
 // Product Route Start 
+Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],function(){
+    // Product Route Start
+    Route::GROUP(['prefix' => 'product', 'as' => 'product.'],function(){
+        Route::GET('/list',[
+            'uses'   => 'ProductController@index',
+            'as'     => 'list'
+        ]);
+        Route::GET('/add',[
+            'uses'   => 'ProductController@create',
+            'as'     => 'add'
+        ]);
+    });
 
-Route::group(['prefix'=>'category', 'as'=>'category.', 'middleware'=>['auth'] ],function(){
-    Route::get('/list', [
-        'uses'  =>'CategoryController@index',
-        'as'    =>'list'
-    ]);
-    Route::POST('/store',[
-        'uses'  => 'CategoryController@store',
-        'as'    => 'store'
-    ]);
-    Route::GET('/destroy',[
-        'uses'  => 'CategoryController@destroy',
-        'as'    => 'destroy'
-    ]);
+    // Product Route End
+    // Product Category Route Start
+    Route::GROUP(['prefix'=>'category', 'as'=>'category.'],function(){
+        Route::GET('/list', [
+            'uses'  =>'CategoryController@index',
+            'as'    =>'list'
+        ]);
+        Route::POST('/store',[
+            'uses'  => 'CategoryController@store',
+            'as'    => 'store'
+        ]);
+        Route::GET('/destroy',[
+            'uses'  => 'CategoryController@destroy',
+            'as'    => 'destroy'
+        ]);
+        Route::POST('update',[
+            'uses'  => 'CategoryController@update',
+            'as'    => 'update'
+        ]);
+    });
+    // Product Category Route End
+    // Product Brand Route Start
+    Route::GROUP(['prefix' => 'brand', 'as' => 'brand.'],function(){
+        Route::GET('/list',[
+            'uses'   => 'BrandController@index',
+            'as'     => 'list'
+        ]);
+        Route::POST('/store',[
+            'uses'  => 'BrandController@store',
+            'as'    => 'store'
+        ]);
+        Route::POST('/update',[
+            'uses'  => 'BrandController@update',
+            'as'    => 'update'
+        ]);
+        Route::GET('/destroy',[
+            'uses'  => 'BrandController@destroy',
+            'as'    => 'destroy'
+        ]);
+    });
+
+    // Product Payment Method Route Start
+    Route::GROUP(['prefix' => 'payment-method','as' => 'payment-method.'],function(){
+        Route::GET('/list',[
+            'uses'  => 'PaymentMethodController@index',
+            'as'    => 'list' 
+        ]);
+        Route::POST('/store',[
+            'uses'  => 'PaymentMethodController@store',
+            'as'    => 'store'
+        ]);
+        Route::POST('/update',[
+            'uses'  => 'PaymentMethodController@update',
+            'as'    => 'update'
+        ]);
+        Route::GET('/destroy',[
+            'uses' => 'PaymentMethodController@destroy',
+            'as'   => 'destroy'
+        ]);
+    });
+
+    // Product Attribute Route Start
+    Route::GROUP(['prefix' => 'attribute','as' => 'attribute.'],function(){
+        Route::GET('/list',[
+            'uses'  => 'ProductAttributeController@index',
+            'as'    => 'list'
+        ]);
+        Route::POST('/store',[
+            'uses'  => 'ProductAttributeController@store',
+            'as'    => 'store'
+        ]);
+        Route::POST('/update',[
+            'uses'  => 'ProductAttributeController@update',
+            'as'    => 'update'
+        ]);
+        Route::GET('/destroy',[
+            'uses' => 'ProductAttributeController@destroy',
+            'as'   => 'destroy'
+        ]);
+    });
 });
 
 

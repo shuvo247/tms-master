@@ -19,6 +19,7 @@ class CreateSendMessagesTable extends Migration
             $table->integer('contact_category')->comment('1 = Customer, 2 = Supplier, 3 = Employee , 4 = Phone Book');
             $table->longText('contact_persons_id')->comment('This will be an array. It will store customer, supplier, employee , phone book ID');
             $table->string('message_type')->comment('masking or non-masking');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

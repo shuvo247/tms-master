@@ -1,18 +1,19 @@
-<div class="modal fade" id="categoryEditModal" tabindex="-1" role="dialog" aria-labelledby="categoryEditModal" aria-hidden="true">
+<div class="modal fade" id="attributeEditModal" tabindex="-1" role="dialog" aria-labelledby="attributeEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="categoryEditModal">Edit Category</h5>
+          <h5 class="modal-title" id="attributeEditModal">Edit Attribute</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" enctype="multipart/form-data">
+          <form action="{{route('product.attribute.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="attribute_id" id="hiddenAttributeId">
             <div class="form-group">
-              <label for="categoryName" class="col-form-label">Product Category Name</label>
-              <input name="category_name" type="text" class="form-control" id="aditCategoryName" value="">
+              <label for="attributeName" class="col-form-label">Product Attribute Name</label>
+              <input name="attribute_name" id="attributeName" type="text" class="form-control" value="">
             </div>
         </div>
         <div class="modal-footer">

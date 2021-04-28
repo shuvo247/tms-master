@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Helpers\Helper;
+use App\Models\ProductAttribute;
 use Session;
-
-class CategoryController extends Controller
+class ProductAttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderByDesc('id')->get();
-        return view('admin.pages.products.categories.list',compact('categories'));
+        $attributes = ProductAttribute::all();
+        return view('admin.pages.products.attributes.list',compact('attributes'));
     }
 
     /**
@@ -39,14 +37,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'attribute_name' => 'required|unique:product_attributes',
         ]);
         try {
-            $category = new Category();
-            $category->category_name = $request->category_name;
-            $category->category_slug = Helper::makeSlug($request->category_name);
-            $category->save();
-            Session::flash('alert-success', 'Category created successfully!!');
+            $product_attribute = new ProductAttribute();
+            $product_attribute->attribute_name = $request->attribute_name;
+            $product_attribute->save();
+            Session::flash('alert-success', 'Product attribute created successfully!!');
             return back();
            
         } catch (\Throwable $th) {
@@ -54,7 +51,7 @@ class CategoryController extends Controller
             return redirect()->back();
            
         }
-        
+
     }
 
     /**
@@ -89,19 +86,20 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'attribute_name' => 'required',
         ]);
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->category_name = $request->category_name;
-            $category->update();
-            Session::flash('alert-success', 'Category updated successfully!!');
+            $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
+            $product_attribute->attribute_name = $request->attribute_name;
+            $product_attribute->update();
+            Session::flash('alert-success', 'Product attribute updated successfully!!');
             return back();
+           
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();
+           
         }
-
     }
 
     /**
@@ -113,14 +111,15 @@ class CategoryController extends Controller
     public function destroy(Request $request)
     {
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->delete();
-            Session::flash('alert-danger', 'Category deleted successfully!!');
+            $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
+            $product_attribute->delete();
+            Session::flash('alert-success', 'Product attribute updated successfully!!');
             return back();
+           
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();
+           
         }
-        
     }
 }

@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->float('salary');
             $table->string('nid_card')->nullable();
             $table->string('certificate')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

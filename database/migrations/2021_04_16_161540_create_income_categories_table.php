@@ -17,6 +17,7 @@ class CreateIncomeCategoriesTable extends Migration
             $table->id();
             $table->string('income_category_name');
             $table->string('income_category_slug');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

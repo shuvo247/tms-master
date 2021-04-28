@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Helpers\Helper;
+use App\Models\PaymentMethod;
 use Session;
-
-class CategoryController extends Controller
+class PaymentMethodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderByDesc('id')->get();
-        return view('admin.pages.products.categories.list',compact('categories'));
+        $payment_methods = PaymentMethod::orderByDesc('id')->get();
+        return view('admin.pages.products.payment-method.list',compact('payment_methods'));
     }
 
     /**
@@ -39,14 +37,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'method_name' => 'required|unique:payment_methods',
+            'description' => 'nullable'
         ]);
         try {
-            $category = new Category();
-            $category->category_name = $request->category_name;
-            $category->category_slug = Helper::makeSlug($request->category_name);
-            $category->save();
-            Session::flash('alert-success', 'Category created successfully!!');
+            $payment_method = new PaymentMethod();
+            $payment_method->method_name = $request->method_name;
+            $payment_method->description = $request->description;
+            $payment_method->save();
+            Session::flash('alert-success', 'Payment method created successfully!!');
             return back();
            
         } catch (\Throwable $th) {
@@ -54,7 +53,6 @@ class CategoryController extends Controller
             return redirect()->back();
            
         }
-        
     }
 
     /**
@@ -89,19 +87,22 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories'
+            'method_name' => 'required',
+            'description' => 'nullable'
         ]);
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->category_name = $request->category_name;
-            $category->update();
-            Session::flash('alert-success', 'Category updated successfully!!');
+            $payment_method = PaymentMethod::findOrFail($request->payment_method_id);
+            $payment_method->method_name = $request->method_name;
+            $payment_method->description = $request->description;
+            $payment_method->update();
+            Session::flash('alert-success', 'Payment method updated successfully!!');
             return back();
+           
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();
+           
         }
-
     }
 
     /**
@@ -113,9 +114,9 @@ class CategoryController extends Controller
     public function destroy(Request $request)
     {
         try {
-            $category = Category::findOrFail($request->category_id);
-            $category->delete();
-            Session::flash('alert-danger', 'Category deleted successfully!!');
+            $payment_method = PaymentMethod::findOrFail($request->payment_method_id);
+            $payment_method->delete();
+            Session::flash('alert-danger', 'Payment method deleted successfully!!');
             return back();
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');

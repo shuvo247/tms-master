@@ -18,6 +18,7 @@ class CreatePhoneBooksTable extends Migration
             $table->string('name');
             $table->integer('phone_number');
             $table->string('address');
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }
