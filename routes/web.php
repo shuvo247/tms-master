@@ -116,6 +116,10 @@ Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],fu
             'uses' => 'ProductAttributeController@destroy',
             'as'   => 'destroy'
         ]);
+        Route::GET('/edit',[
+            'uses' => 'ProductAttributeController@edit',
+            'as'   => 'edit'
+        ]);
     });
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductAttribute;
 use Session;
+use App\Models\AttributeValue;
 class ProductAttributeController extends Controller
 {
     /**
@@ -36,13 +37,18 @@ class ProductAttributeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'attribute_name' => 'required|unique:product_attributes',
-        ]);
+
         try {
             $product_attribute = new ProductAttribute();
             $product_attribute->attribute_name = $request->attribute_name;
             $product_attribute->save();
+            $count = count($request->attribute_value);
+            for ($i=0; $i < $count; $i++) { 
+                $attribute_value = new AttributeValue();
+                $attribute_value->attribute_id = $product_attribute->id;
+                $attribute_value->attribute_value = $request->attribute_value[$i];
+                $attribute_value->save();
+              }
             Session::flash('alert-success', 'Product attribute created successfully!!');
             return back();
            
@@ -71,9 +77,11 @@ class ProductAttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $attribute = ProductAttribute::findOrFail($request->attribute_id);
+        $attributes = ProductAttribute::all();
+        return view('admin.pages.products.attributes.edit',compact('attribute','attributes'));
     }
 
     /**
@@ -85,13 +93,31 @@ class ProductAttributeController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'attribute_name' => 'required',
-        ]);
         try {
+            // Try to Update Product Attribute Name
             $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
             $product_attribute->attribute_name = $request->attribute_name;
             $product_attribute->update();
+            // Try to update Attribute Value
+            $attributeCount = count($request->attribute_value);
+            for ($i=0; $i < $attributeCount; $i++) { 
+                $attribute_value = AttributeValue::findOrFail($request->attribute_value_id[$i]);
+                $attribute_value->attribute_value = $request->attribute_value[$i];
+                $attribute_value->update();
+              }
+              // Try to Upload New Attribute
+              $newAttributeCount = count($request->new_attribute_value);
+              if (isset($newAttributeCount)) {
+                    for ($i=0; $i < $newAttributeCount; $i++) { 
+                        $attribute_value = new AttributeValue();
+                        $attribute_value->attribute_id = $request->attribute_id;
+                        $attribute_value->attribute_value = $request->new_attribute_value[$i];
+                        $attribute_value->save();
+                    }
+              }
+            //   // Try to Delete Attribute
+            //   $deleteAttributeValue = AttributeValue::findOrFail('id','!==',$request->attribute_value_id);
+            //   $deleteAttributeValue->delete();
             Session::flash('alert-success', 'Product attribute updated successfully!!');
             return back();
            

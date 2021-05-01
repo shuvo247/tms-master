@@ -14,6 +14,19 @@
               <label for="attributeName" class="col-form-label">Product Attribute Name</label>
               <input name="attribute_name" type="text" class="form-control" id="attributeName" placeholder="Attribute Name">
             </div>
+            <div id="inputFormRow">
+              <label for="attributeName" class="col-form-label">Attribute Value</label>
+              <div class="input-group mb-3">
+                  <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">
+                  <div class="input-group-append">                
+                      <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                  </div>
+              </div>
+            </div>
+          <div id="newRow"></div>
+          <div class="ml-auto">
+            <button id="addRow" type="button" class="btn btn-info ml-auto">Add Row</button>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

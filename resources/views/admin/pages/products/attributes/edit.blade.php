@@ -10,21 +10,24 @@
                     <h4 class="page-title">All Attribute </h4>
                 </div>
             </div>
-            <form action="{{route('product.attribute.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('product.attribute.update',['attribute_id' => $attribute->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="attributeName" class="col-form-label">Product Attribute Name</label>
-                  <input name="attribute_name" type="text" class="form-control" id="attributeName" placeholder="Attribute name">
+                  <input name="attribute_name" type="text" class="form-control" id="attributeName" value="{{$attribute->attribute_name}}">
                 </div>
-                    <div id="inputFormRow">
-                        <label for="attributeName" class="col-form-label">Attribute Value</label>
-                        <div class="input-group mb-3">
-                            <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Enter value" autocomplete="off">
-                            <div class="input-group-append">                
-                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
-                            </div>
+                <label for="attributeName" class="col-form-label">Attribute Value</label>
+                @foreach ($attribute->attribute_value as $value)
+                <div id="inputFormRow">
+                    <div class="input-group mb-3">
+                        <input type="hidden" value="{{$value->id}}" name="attribute_value_id[]">
+                        <input type="text" name="attribute_value[]" class="form-control m-input" value="{{$value->attribute_value}}" autocomplete="off">
+                        <div class="input-group-append">                
+                            <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                         </div>
                     </div>
+                </div>
+                @endforeach
               <div id="newRow"></div>
               <div class="ml-auto">
                 <button id="addRow" type="button" class="btn btn-info" style="margin-left: 44%;">Add Row</button>
@@ -96,7 +99,7 @@
        var html = '';
        html += '<div id="inputFormRow">';
        html += '<div class="input-group mb-3">';
-       html += '<input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
+       html += '<input type="text" name="new_attribute_value[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
        html += '<div class="input-group-append">';
        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
        html += '</div>';
@@ -110,3 +113,4 @@
    });
  </script>
 @endsection
+

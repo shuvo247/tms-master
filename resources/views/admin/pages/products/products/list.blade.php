@@ -33,8 +33,8 @@
         </div>
     </div>
 </div>
+@include('admin.pages.products.products.add-product')
 @endsection
-@include('admin.pages.products.products.modals.add-product')
 @section('custom_styles')
 @endsection
 @section('custom_scripts')
