@@ -1,19 +1,19 @@
-<div class="modal fade" id="paymentMethodEditModal" tabindex="-1" role="dialog" aria-labelledby="paymentMethodEditModal" aria-hidden="true">
+<div class="modal fade" id="supplierTypeEditModal" tabindex="-1" role="dialog" aria-labelledby="supplierTypeEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="paymentMethodEditModal">Edit Payment Method</h5>
+          <h5 class="modal-title" id="supplierTypeEditModal">Edit Supplier Type</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{route('product.payment-method.update')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{route('register.supplier.supplier-type.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="payment_method_id" id="hiddenPaymentMethodId">
+            <input type="hidden" name="supplier_type_id" id="hiddenSupplierTypeId">
             <div class="form-group">
-                <label for="methodName" class="col-form-label">Method Name <span class="text-danger">*</span></label>
-                <input name="method_name" type="text" class="form-control" id="methodName" placeholder="Method Name">
+                <label for="supplierType" class="col-form-label">Supplier Type <span class="text-danger">*</span></label>
+                <input name="supplier_type" type="text" class="form-control" id="supplierType">
               </div>
               <div class="form-group">
                   <label for="description" class="col-form-label">Description</label>

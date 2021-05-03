@@ -1,18 +1,18 @@
-<div class="modal fade" id="paymentPethodAddModal" tabindex="-1" role="dialog" aria-labelledby="paymentPethodAddModal" aria-hidden="true">
+<div class="modal fade" id="supplierTypeAddModal" tabindex="-1" role="dialog" aria-labelledby="supplierTypeAddModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="paymentPethodAddModal">Add Payment Method</h5>
+          <h5 class="modal-title" id="supplierTypeAddModal">Add Supplier Type</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{route('product.payment-method.store')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{route('register.supplier.supplier-type.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-              <label for="methodName" class="col-form-label">Method Name <span class="text-danger">*</span></label>
-              <input name="method_name" type="text" class="form-control" id="methodName" placeholder="Method Name">
+              <label for="supplierType" class="col-form-label">Supplier Type <span class="text-danger">*</span></label>
+              <input name="supplier_type" type="text" class="form-control" id="supplierType" placeholder="Ex : Dealer, Retailer, Manufacturer, Flying Purchase">
             </div>
             <div class="form-group">
                 <label for="description" class="col-form-label">Description</label>

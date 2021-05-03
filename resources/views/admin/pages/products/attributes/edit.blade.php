@@ -35,6 +35,7 @@
               <hr>
                 <div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{{route('product.attribute.list')}}" class="btn btn-secondary" data-dismiss="modal">Close</a>
                 </div>
                 </form>
             </div>
@@ -61,7 +62,7 @@
                             @forelse ($attributes as $attribute)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>{{$attribute->attribute_name}}</td>
+                                    <td>{{$attribute->attribute_name ?? ''}}</td>
                                     <td>
                                         <a href="{{route('product.attribute.edit',['attribute_id' => $attribute->id])}}"><i class="font-18 far fa-edit text-info"></i></a>
                                         <a href="{{route('product.attribute.destroy',['attribute_id' => $attribute->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>

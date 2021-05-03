@@ -11,7 +11,7 @@
         <form action="{{route('product.category.store')}}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
-            <label for="categoryName" class="col-form-label">Product Category Name</label>
+            <label for="categoryName" class="col-form-label">Product Category Name <span class="text-danger">*</span></label>
             <input name="category_name" type="text" class="form-control" id="categoryName" placeholder="Category Name">
           </div>
       </div>

@@ -123,6 +123,47 @@ Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],fu
     });
 });
 
+// Regsiter Route Start
+
+// Product Route Start 
+Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],function(){
+    // Product Route Start
+    Route::GROUP(['prefix' => 'supplier', 'as' => 'supplier.'],function(){
+        // Supplier Type Route Start
+        Route::GROUP(['prefix' => 'supplier-type', 'as' => 'supplier-type.'],function(){
+            Route::GET('/list',[
+                'uses'   => 'SupplierTypeController@index',
+                'as'     => 'list'
+            ]);
+            Route::POST('/store',[
+                'uses'  => 'SupplierTypeController@store',
+                'as'    => 'store'
+            ]);
+            Route::POST('/update',[
+                'uses'  => 'SupplierTypeController@update',
+                'as'    => 'update'
+            ]);
+            Route::GET('/destroy',[
+                'uses'  => 'SupplierTypeController@destroy',
+                'as'    => 'destroy'
+            ]);
+        });
+        // Supplier Type Route End
+        Route::GET('/list',[
+            'uses'   => 'SupplierController@index',
+            'as'     => 'list'
+        ]);
+        Route::POST('/store',[
+            'uses'   => 'SupplierController@store',
+            'as'     => 'store'
+        ]);
+        Route::GET('/edit',[
+            'uses'   => 'SupplierController@edit',
+            'as'     => 'edit'
+        ]);
+    });
+});
+// Register Route End
 
 
 

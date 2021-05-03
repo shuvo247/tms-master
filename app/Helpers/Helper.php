@@ -11,4 +11,5 @@ class Helper {
         $slug= strtolower($slug);  // make it lowercase
         return $slug;
     }
+    
 }

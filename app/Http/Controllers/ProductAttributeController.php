@@ -95,19 +95,27 @@ class ProductAttributeController extends Controller
     {
         try {
             // Try to Update Product Attribute Name
-            $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
-            $product_attribute->attribute_name = $request->attribute_name;
-            $product_attribute->update();
+            // $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
+            // $product_attribute->attribute_name = $request->attribute_name;
+            // $product_attribute->update();
             // Try to update Attribute Value
-            $attributeCount = count($request->attribute_value);
-            for ($i=0; $i < $attributeCount; $i++) { 
-                $attribute_value = AttributeValue::findOrFail($request->attribute_value_id[$i]);
-                $attribute_value->attribute_value = $request->attribute_value[$i];
-                $attribute_value->update();
-              }
+            if (isset($request->new_attribute_value)) {
+                $attributeCount = count($request->new_attribute_value);
+                for ($i=0; $i < $attributeCount; $i++) { 
+                    $attribute_value = AttributeValue::findOrFail($request->attribute_value_id[$i]);
+                    $attribute_value->attribute_value = $request->attribute_value[$i];
+                    $attribute_value->update();
+                  }
+            }
+                $value = array_map('intval',$request->attribute_value_id);
+                if (isset($value)) {
+                    $delete_attribute = AttributeValue::whereNotIn('id',$value)
+                                        ->where('attribute_id',$request->attribute_id)
+                                        ->delete();
+                }
               // Try to Upload New Attribute
-              $newAttributeCount = count($request->new_attribute_value);
-              if (isset($newAttributeCount)) {
+              if (isset($request->new_attribute_value)) {
+                $newAttributeCount = count($request->new_attribute_value);
                     for ($i=0; $i < $newAttributeCount; $i++) { 
                         $attribute_value = new AttributeValue();
                         $attribute_value->attribute_id = $request->attribute_id;
@@ -115,9 +123,8 @@ class ProductAttributeController extends Controller
                         $attribute_value->save();
                     }
               }
-            //   // Try to Delete Attribute
-            //   $deleteAttributeValue = AttributeValue::findOrFail('id','!==',$request->attribute_value_id);
-            //   $deleteAttributeValue->delete();
+            //   Try to Delete Attribute
+           
             Session::flash('alert-success', 'Product attribute updated successfully!!');
             return back();
            
@@ -137,7 +144,11 @@ class ProductAttributeController extends Controller
     public function destroy(Request $request)
     {
         try {
+
             $product_attribute = ProductAttribute::findOrFail($request->attribute_id);
+            // Delete Attribute Value
+            $product_attribute_value = AttributeValue::where('attribute_id',$product_attribute->id)->delete();
+            // Delete Product Attribute
             $product_attribute->delete();
             Session::flash('alert-success', 'Product attribute updated successfully!!');
             return back();

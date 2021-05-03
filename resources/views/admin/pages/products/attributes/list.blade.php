@@ -7,19 +7,19 @@
             <div class="card-body">
             <div class="row">
                 <div class="col-5 align-self-center">
-                    <h4 class="page-title">All Attribute </h4>
+                    <h4 class="page-title">Add Attribute </h4>
                 </div>
             </div>
             <form action="{{route('product.attribute.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="attributeName" class="col-form-label">Product Attribute Name</label>
-                  <input name="attribute_name" type="text" class="form-control" id="attributeName" placeholder="Attribute name">
+                  <input name="attribute_name" type="text" class="form-control" id="attributeName" placeholder="Ex: Size, Grade, Box">
                 </div>
                     <div id="inputFormRow">
                         <label for="attributeName" class="col-form-label">Attribute Value</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Enter value" autocomplete="off">
+                            <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Ex: 20X30cm, Grade-A, 25pcs = 1 box" autocomplete="off">
                             <div class="input-group-append">                
                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                             </div>
@@ -58,7 +58,7 @@
                             @forelse ($attributes as $attribute)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>{{$attribute->attribute_name}}</td>
+                                    <td>{{$attribute->attribute_name ?? ''}}</td>
                                     <td>
                                         <a href="{{route('product.attribute.edit',['attribute_id' => $attribute->id])}}"><i class="font-18 far fa-edit text-info"></i></a>
                                         <a href="{{route('product.attribute.destroy',['attribute_id' => $attribute->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>

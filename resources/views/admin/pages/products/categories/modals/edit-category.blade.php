@@ -12,7 +12,7 @@
             @csrf
             <input type="hidden" name="category_id" id="hiddenCategoryId">
             <div class="form-group">
-              <label for="categoryName" class="col-form-label">Product Category Name</label>
+              <label for="categoryName" class="col-form-label">Product Category Name <span class="text-danger">*</span></label>
               <input name="category_name" id="categoryName" type="text" class="form-control" value="">
             </div>
         </div>
