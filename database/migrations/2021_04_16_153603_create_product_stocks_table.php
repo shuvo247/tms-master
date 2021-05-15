@@ -15,10 +15,11 @@ class CreateProductStocksTable extends Migration
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->integer('variant_id');
-            $table->string('variant_value_id');
+            $table->integer('attribute_id');
+            $table->string('attribute_value');
             $table->string('sku');
-            $table->float('price');
+            $table->float('purchase_price');
+            $table->float('selling_price');
             $table->float('qty_in_sft');
             $table->float('sft_sell');
             $table->float('box_sell');

@@ -9,7 +9,7 @@
         @include('admin.partials.flash')
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Full Form Repeater</h4>
+                <h4 class="card-title">Add New Supplier</h4>
                 <div class="repeater-default m-t-30">
                     <div data-repeater-list="">
                         <div data-repeater-item="">
@@ -18,7 +18,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="supplierName">Select Type <span class="text-danger">*</span></label>
-                                        <select class="form-control supplier-type" id="supplierName" name="supplier_type" required>
+                                        <select class="form-control select-2" id="supplierName" name="supplier_type" required>
                                             @foreach (App\Models\SupplierType::all() as $type)
                                                 <option value="{{$type->id}}">{{$type->supplier_type}}</option>
                                             @endforeach
@@ -99,13 +99,14 @@
                                 <td>{{$supplier->address}}</td>
                                 <td>{{$supplier->mobile_number}}</td>
                                 <td>
-                                    <a href="{{route('register.supplier.edit',['supplier_id' => $supplier->id])}}"><i class="font-18 far fa-edit text-info"></i></a>
-                                    <a href=""><i class="font-18 far fa-trash-alt text-danger"></i></a>
+                                    <a href="{{route('register.supplier.show',['supplier_id' => $supplier->id])}}"><i class="font-18 far fa-eye text-info"></i></a>
+                                    <a href="{{route('register.supplier.edit',['supplier_id' => $supplier->id])}}" class="mx-2"><i class="font-18 far fa-edit text-info"></i></a>
+                                    <a href="{{route('register.supplier.destroy',['supplier_id' => $supplier->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td class="text-danger text-center" colspan="3">This table data is empty</td>
+                                <td class="text-danger text-center" colspan="7">This table data is empty</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -121,7 +122,7 @@
 <script>
     $(document).ready(function() {
         $('#supplierTable').DataTable();
-        $('.supplier-type').select2();
+        $('.select-2').select2();
 });
 </script>
 @endsection

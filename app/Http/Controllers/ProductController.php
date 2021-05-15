@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ProductAttribute;
+use App\Models\AttributeValue;
 class ProductController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.products.products.list');
+        $productAttribute = ProductAttribute::all();
+        $attributeValue = AttributeValue::all();
+        return view('admin.pages.products.products.list',compact('productAttribute','attributeValue'));
     }
 
     /**
@@ -23,7 +26,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.products.products.add');
+        $productAttribute = ProductAttribute::all();
+        $attributeValue = AttributeValue::all();
+        return view('admin.pages.products.products.add',compact('productAttribute','attributeValue'));
     }
 
     /**

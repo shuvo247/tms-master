@@ -12,7 +12,7 @@
             @csrf
             <div class="form-group">
               <label for="supplierType" class="col-form-label">Supplier Type <span class="text-danger">*</span></label>
-              <input name="supplier_type" type="text" class="form-control" id="supplierType" placeholder="Ex : Dealer, Retailer, Manufacturer, Flying Purchase">
+              <input name="supplier_type" type="text" class="form-control" id="supplierType" placeholder="Ex : Dealer, Retailer, Manufacturer(Company), Flying Purchase">
             </div>
             <div class="form-group">
                 <label for="description" class="col-form-label">Description</label>

@@ -10,18 +10,18 @@
         @include('admin.partials.flash')
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Full Form Repeater</h4>
+                <h4 class="card-title">Add Supplier</h4>
                 <div class="repeater-default m-t-30">
                     <div data-repeater-list="">
                         <div data-repeater-item="">
-                            <form action="{{route('register.supplier.store')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('register.supplier.update',['supplier_id' => $supplier->id])}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="supplierName">Select Type <span class="text-danger">*</span></label>
-                                        <select class="form-control supplier-type" id="supplierName" name="supplier_type" required>
+                                        <select class="form-control select-2" id="supplierName" name="supplier_type" required>
                                             @foreach (App\Models\SupplierType::all() as $type)
-                                                <option value="{{$type->id}}">{{$type->supplier_type}}</option>
+                                                <option value="{{$type->id}}" @if($type == $supplier->supplier_type) selected @endif>{{$type->supplier_type}}</option>
                                             @endforeach
                                           </select>
                                     </div>
@@ -123,6 +123,7 @@
     $(document).ready(function() {
         $('#supplierTable').DataTable();
         $('.supplier-type').select2();
+        
 });
 </script>
 @endsection

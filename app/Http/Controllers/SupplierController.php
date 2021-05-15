@@ -46,8 +46,15 @@ class SupplierController extends Controller
             $supplier->mobile_number = $request->mobile_number;
             $supplier->alternative_mobile_number = $request->alternative_mobile_number;
             $supplier->nid_number = $request->nid_number;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/');
+                $image->move($destinationPath, $name);
+                $supplier->image = $name;
+            }
             $supplier->save();
-            Session::flash('alert-success', 'Category updated successfully!!');
+            Session::flash('alert-success', 'Supplier added successfully!!');
             return back();
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
@@ -61,9 +68,10 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $supplier = Supplier::findOrFail($request->supplier_id);
+        return view('admin.pages.registers.suppliers.show',compact('supplier'));
     }
 
     /**
@@ -86,9 +94,34 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $supplier = Supplier::findOrFail($request->supplier_id);
+            $supplier->supplier_type_id = $request->supplier_type;
+            $supplier->supplier_name = $request->supplier_name;
+            $supplier->organization_name = $request->organization;
+            $supplier->address = $request->address;
+            $supplier->mobile_number = $request->mobile_number;
+            $supplier->alternative_mobile_number = $request->alternative_mobile_number;
+            $supplier->nid_number = $request->nid_number;
+            if ($request->hasFile('image')) {
+                if(isset($supplier->image)){
+                    unlink('/uploads/'.$supplier->image);
+                }
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/');
+                $image->move($destinationPath, $name);
+                $supplier->image = $name;
+            }
+            $supplier->update();
+            Session::flash('alert-success', 'Supplier updated successfully!!');
+            return back();
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -97,8 +130,16 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $supplier = Supplier::findOrFail($request->supplier_id);
+            $supplier->delete();
+            Session::flash('alert-danger', 'Supplier deleted successfully!!');
+            return back();
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 }

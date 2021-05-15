@@ -20,9 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
 // Product Route Start 
 Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],function(){
     // Product Route Start
@@ -160,6 +157,18 @@ Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],
         Route::GET('/edit',[
             'uses'   => 'SupplierController@edit',
             'as'     => 'edit'
+        ]);
+        Route::POST('/update',[
+            'uses'   => 'SupplierController@update',
+            'as'     => 'update'
+        ]);
+        Route::GET('/destroy',[
+            'uses'   => 'SupplierController@destroy',
+            'as'     => 'destroy'
+        ]);
+        Route::GET('/show',[
+            'uses'   => 'SupplierController@show',
+            'as'     => 'show'
         ]);
     });
 });

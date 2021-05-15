@@ -29,7 +29,7 @@ class SupplierStoreRequest extends FormRequest
             'address'                        => 'required',
             'mobile_number'                  => 'required',
             'alternative_mobile_number'      => 'nullable',
-            'nid_number'                     => 'nullable|min:14|max:14',
+            'nid_number'                     => 'nullable|min:8|max:14',
             'image'                          => 'image|nullable'
         ];
     }
