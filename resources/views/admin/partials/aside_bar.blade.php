@@ -25,7 +25,7 @@
                                     class="mdi mdi-minus"></i><span class="hide-menu"> Payment Method </span></a>
                                  </li>
                                  <li class="sidebar-item"><a href="{{route('product.attribute.list')}}" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Attribute </span></a>
+                                   class="mdi mdi-minus"></i><span class="hide-menu"> Attribute / Variation </span></a>
                                  </li>
                                  <li class="sidebar-item"><a href="ticket-detail.html" class="sidebar-link"><i
                                    class="mdi mdi-minus"></i><span class="hide-menu"> Bulk Opening Stock </span></a>
@@ -37,6 +37,12 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                  <li class="sidebar-item"><a href="{{route('register.supplier.supplier-type.list')}}" class="sidebar-link"><i
                                     class="mdi mdi-minus"></i><span class="hide-menu"> Supplier Type </span></a>
+                                 </li>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('register.organization.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Add Organization </span>
+                                    </a>
                                  </li>
                                  <li class="sidebar-item">
                                     <a href="{{route('register.supplier.list')}}" class="sidebar-link">

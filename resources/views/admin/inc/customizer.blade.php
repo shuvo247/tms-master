@@ -1,4 +1,4 @@
-<aside class="customizer">
+{{-- <aside class="customizer">
         <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
         <div class="customizer-body">
             <ul class="nav customizer-tab" role="tablist">
@@ -281,3 +281,5 @@
             </div>
         </div>
     </aside>
+
+    --}}

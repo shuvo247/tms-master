@@ -9,5 +9,8 @@ class AttributeValue extends Model
 {
     use HasFactory;
 
+    public function attributes(){
+        return $this->belongsToMany(PorductAttribute::class);
+    }
     
 }

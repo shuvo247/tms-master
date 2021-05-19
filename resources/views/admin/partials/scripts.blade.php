@@ -28,5 +28,6 @@
 <script src="{{asset('backend/assets/libs/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('backend/assets/js/pages/dashboards/dashboard-clasic.js')}}"></script>
 <script src="{{asset('backend/assets/extra-libs/DataTables/datatables.min.js')}}"></script>>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
 
 @yield('custom_scripts')

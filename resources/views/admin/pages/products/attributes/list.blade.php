@@ -13,13 +13,16 @@
             <form action="{{route('product.attribute.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                  <label for="attributeName" class="col-form-label">Product Attribute Name</label>
-                  <input name="attribute_name" type="text" class="form-control" id="attributeName" placeholder="Ex: Size, Grade, Box">
+                  <label for="attributeName" class="col-form-label">Select Attribute</label>
+                    <select name="attribute_name" id="attributeName" class="form-control">
+                        <option value="Size">Size</option>
+                        <option value="Grade">Grade</option>
+                    </select>
                 </div>
                     <div id="inputFormRow">
                         <label for="attributeName" class="col-form-label">Attribute Value</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Ex: 20X30cm, Grade-A, 25pcs = 1 box" autocomplete="off">
+                            <input type="text" name="attribute_value[]" class="form-control m-input" placeholder="Ex: 20X30cm, Grade-A" autocomplete="off">
                             <div class="input-group-append">                
                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                             </div>

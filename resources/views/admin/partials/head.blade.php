@@ -6,7 +6,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <title> Tiles Management System</title>
     @include('admin.partials.styles')
 </head>

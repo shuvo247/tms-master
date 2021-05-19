@@ -37,7 +37,9 @@ class ProductAttributeController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->validate([
+            'attribute_name' => 'unique:product_attributes',
+        ]);
         try {
             $product_attribute = new ProductAttribute();
             $product_attribute->attribute_name = $request->attribute_name;

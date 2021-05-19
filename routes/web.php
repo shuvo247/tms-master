@@ -32,6 +32,10 @@ Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],fu
             'uses'   => 'ProductController@create',
             'as'     => 'add'
         ]);
+        Route::POST('/store',[
+            'uses'   => 'ProductController@store',
+            'as'     => 'store'
+        ]);
     });
 
     // Product Route End
@@ -122,9 +126,15 @@ Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],fu
 
 // Regsiter Route Start
 
-// Product Route Start 
 Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],function(){
-    // Product Route Start
+
+    Route::GROUP(['prefix' => 'organization','as' => 'organization.'],function(){
+        Route::GET('/list',[
+            'uses'     => 'OrganizationController@index',
+            'as'      => 'list'
+        ]);
+    });
+
     Route::GROUP(['prefix' => 'supplier', 'as' => 'supplier.'],function(){
         // Supplier Type Route Start
         Route::GROUP(['prefix' => 'supplier-type', 'as' => 'supplier-type.'],function(){

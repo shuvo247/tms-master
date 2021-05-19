@@ -15,15 +15,13 @@ class CreateProductStocksTable extends Migration
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->integer('attribute_id');
-            $table->string('attribute_value');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->float('purchase_price');
             $table->float('selling_price');
             $table->float('qty_in_sft');
-            $table->float('sft_sell');
-            $table->float('box_sell');
-            $table->float('barcode');
+            $table->float('sft_sell')->nullable();
+            $table->float('box_sell')->nullable();
+            $table->float('barcode')->nullable();
             $table->timestamps();
         });
     }

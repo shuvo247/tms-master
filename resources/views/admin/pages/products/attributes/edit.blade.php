@@ -13,8 +13,11 @@
             <form action="{{route('product.attribute.update',['attribute_id' => $attribute->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                  <label for="attributeName" class="col-form-label">Product Attribute Name</label>
-                  <input name="attribute_name" type="text" class="form-control" id="attributeName" value="{{$attribute->attribute_name}}">
+                    <label for="attributeName" class="col-form-label">Select Attribute</label>
+                    <select name="attribute_name" id="attributeName" class="form-control" disabled>
+                        <option value="Size" @if($attribute->attribute_name == "Size") selected @endif>Size</option>
+                        <option value="Grade" @if($attribute->attribute_name == "Grade") selected @endif>Grade</option>
+                    </select>
                 </div>
                 <label for="attributeName" class="col-form-label">Attribute Value</label>
                 @foreach ($attribute->attribute_value as $value)
