@@ -133,6 +133,10 @@ Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],
             'uses'     => 'OrganizationController@index',
             'as'      => 'list'
         ]);
+        Route::POST('/store',[
+            'uses'     => 'OrganizationController@store',
+            'as'      => 'store'
+        ]);
     });
 
     Route::GROUP(['prefix' => 'supplier', 'as' => 'supplier.'],function(){

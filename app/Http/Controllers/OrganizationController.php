@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Organization;
+use App\Http\Requests\OrganizationStoreRequest;
+use Session;
 class OrganizationController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.registers.organizations.list');
+        $organizations = Organization::all();
+        return view('admin.pages.registers.organizations.list',compact('organizations'));
     }
 
     /**
@@ -32,9 +35,29 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrganizationStoreRequest $request)
     {
-        //
+        try {
+            $organization = new Organization();
+            $organization->organization_type = $request->organization_type;
+            $organization->organization_name = $request->organization_name;
+            $organization->owner_name = $request->owner_name;
+            $organization->address = $request->address;
+            $organization->phone = $request->mobile_number;
+            if ($request->hasFile('trade_licence')) {
+                $image = $request->file('trade_licence');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/');
+                $image->move($destinationPath, $name);
+                $organization->image = $name;
+            }
+            $organization->save();
+            Session::flash('alert-success', 'Supplier added successfully!!');
+            return back();
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 
     /**
