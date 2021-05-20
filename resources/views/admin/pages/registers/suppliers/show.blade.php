@@ -6,7 +6,7 @@
             <center class="m-t-30"> <img src="{{ asset('uploads/'.$supplier->image) ?? asset('backend/assert/images/users/5.jpg')}}"  class="rounded-circle" width="150">
                 
                 <h4 class="card-title m-t-10">{{$supplier->supplier_name ?? ''}}</h4>
-                <h6>{{$supplier->organization_name ?? ''}} ({{$supplier->supplier_type->supplier_type ?? ''}})</h6>
+                <h6>{{$supplier->organization->organization_name ?? ''}}</h6>
                 
             </center>
         </div>

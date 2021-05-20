@@ -1,4 +1,12 @@
 @extends('admin.master')
+@section('custom_styles')
+<link href="{{asset('backend/assets/css/select-2.css')}}" rel="stylesheet" />
+<style>
+    .select2-container{
+        width: 100% !important;
+    }
+</style>
+@endsection
 @section('content')
 <div class="col-12">
     <div class="card">
@@ -11,16 +19,8 @@
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="supplierName">Select Supplier <span class="text-danger">*</span></label>
-                                    <select class="form-control select-2" id="supplierName" name="supplier_id" required multiple>
-                                        @foreach (App\Models\Supplier::all() as $supplier)
-                                            <option value="{{$supplier->id}}">{{$supplier->supplier_name}} | {{$supplier->organization_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
                                     <label for="productCategory">Category <span class="text-danger">*</span></label>
-                                    <select class="form-control select-2" id="productCategory" name="category_id" multiple>
+                                    <select class="form-control select-2" id="productCategory" name="category_id">
                                         @foreach (App\Models\Category::all() as $category)
                                             <option value="{{$category->id}}">{{$category->category_name}}</option>
                                         @endforeach
@@ -35,16 +35,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="paymentMethod">Payment Method <span class="text-danger">*</span></label>
-                                    <select class="form-control select-2" id="paymentMethod" name="payment_method_id" required>
-                                        @foreach (App\Models\PaymentMethod::all() as $payment_method)
-                                            <option value="{{$payment_method->id}}">{{$payment_method->method_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
                                     <label for="productName">Product Name <span class="text-danger">*</span></label>
                                     <input name="product_name" type="text" class="form-control" id="productName" placeholder="Ex : A 02">
                                 </div>
@@ -52,14 +42,16 @@
                                     <label for="productPcsPerBox">Pcs Per Box <span class="text-danger">*</span></label>
                                     <input name="pcs_per_box" type="number" class="form-control" id="productPcsPerBox" placeholder="Ex : 25">
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="alertQuantity">Alert Quantity <span class="text-danger">*</span></label>
                                     <input name="alert_quantity" type="number" class="form-control" id="alertQuantity" placeholder="Ex : 400">
                                 </div>
-                                <!-- <div class="form-group col-md-3">
-                                    <label for="alertQuantity">Image</label>
+                                <div class="form-group col-md-3">
+                                    <label for="Image">Image</label>
                                         <input type="file" name="image">
-                                    </div> -->
+                                    </div>
                                 <div class="form-group col-md-3">
                                     <label for="pwd">Product Type</label>
                                     <select name="product_type" class="form-control" id="getProductType"
@@ -165,7 +157,104 @@
         </div>
     </div>
 </div>
+@endsection
+@php
+    $getSizeAttributeId = App\Models\ProductAttribute::where('attribute_name','Size')->first();
+    $getGradeAttributeId = App\Models\ProductAttribute::where('attribute_name','Grade')->first();
+@endphp
+@section('custom_scripts')
+<script src="{{asset('backend/assets/js/select-2.js')}}"></script>
+<script src="{{asset('backend/assets/js/custom/product.js')}}"></script>
+<script>
+    $('#singleProduct').css('display', 'block');
+    $('#variableProduct').css('display', 'none');
+    function getProductTypeChoose() {
+        const producType = $("#getProductType").val();
+        if (producType == 'single') {
+            $('#singleProduct').css('display', 'block');
+            $('#variableProduct').css('display', 'none');
+        } else {
+            $('#singleProduct').css('display', 'none');
+            $('#variableProduct').css('display', 'block');
+        }
+    }
+   $("#addRow").click(function () {
+       var html = '';
+       html += '<div class="recentRow col-12 row" style="margin:0;padding:0">';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<div class="input-group mb-3">';
+       html += '<select class="form-control select-2" name="size_attribute_id[]">';
+       html += '@foreach (App\Models\AttributeValue::where('attribute_id',$getSizeAttributeId->id ?? '')->get() as $value)';
+       html += '<option value="{{$value->id}}">{{$value->attribute_value}}</option>';
+       html += '@endforeach';
+       html += '</select>'
+       html += '<div class="input-group-append">';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<div class="input-group mb-3">';
+       html += '<select class="form-control select-2" name="grade_attribute_id[]">';
+       html += '@foreach (App\Models\AttributeValue::where('attribute_id',$getGradeAttributeId->id ?? '')->get() as $value)';
+       html += '<option value="{{$value->id}}">{{$value->attribute_value}}</option>';
+       html += '@endforeach';
+       html += '</select>'
+       html += '<div class="input-group-append">';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<div class="input-group mb-3">';
+       html += '<input type="text" name="variant_purchase_price[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
+       html += '<div class="input-group-append">';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<div class="input-group mb-3">';
+       html += '<input type="text" name="variant_sell_price[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
+       html += '<div class="input-group-append">';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<div class="input-group mb-3">';
+       html += '<input type="text" name="quantity[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
+       html += '<div class="input-group-append">';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += ' <div class="form-group col-md-2">';
+       html += '<div id="inputFormRow">';
+       html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</div>';
+       $('#newRow').append(html);
+       $('.select-2').select2();
+   });
+ 
+   // remove row
+   $(document).on('click', '#removeRow', function () {
+       $(this).closest('.recentRow').remove();
+   });
+    // Select 2 and DataTable
+    $('#productTable').DataTable();
+    $('.select-2').select2();
+
+</script>
 
 @endsection
-
-

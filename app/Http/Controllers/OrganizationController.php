@@ -49,10 +49,10 @@ class OrganizationController extends Controller
                 $name = time().'.'.$image->getClientOriginalExtension();
                 $destinationPath = public_path('/uploads/');
                 $image->move($destinationPath, $name);
-                $organization->image = $name;
+                $organization->trade_licence = $name;
             }
             $organization->save();
-            Session::flash('alert-success', 'Supplier added successfully!!');
+            Session::flash('alert-success', 'Organization added successfully!!');
             return back();
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
@@ -77,9 +77,11 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $organization = Organization::findOrFail($request->organization_id);
+        $organizations = Organization::all();
+        return view('admin.pages.registers.organizations.edit',compact('organization','organizations'));
     }
 
     /**
@@ -89,9 +91,29 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $organization = Organization::findOrFail($request->organization_id);
+            $organization->organization_type = $request->organization_type;
+            $organization->organization_name = $request->organization_name;
+            $organization->owner_name = $request->owner_name;
+            $organization->address = $request->address;
+            $organization->phone = $request->mobile_number;
+            if ($request->hasFile('trade_licence')) {
+                $image = $request->file('trade_licence');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/');
+                $image->move($destinationPath, $name);
+                $organization->trade_licence = $name;
+            }
+            $organization->update();
+            Session::flash('alert-success', 'Organization update successfully!!');
+            return back();
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -100,8 +122,16 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $organization = Organization::findOrFail($request->organization_id);
+            $organization->delete();
+            Session::flash('alert-danger', 'Organization deleted successfully!!');
+            return redirect()->route('register.organization.list');
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 }

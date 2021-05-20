@@ -17,7 +17,7 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label for="supplierName">Select Type <span class="text-danger">*</span></label>
+                                        <label for="supplierName">Supplier Type <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="supplierName" name="organization_type">
                                             @foreach (App\Models\SupplierType::all() as $type)
                                                 <option value="{{$type->id}}">{{$type->supplier_type}}</option>
@@ -44,16 +44,15 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="image">Trade Licence</label>
-                                        <input name="image" type="file">
+                                        <input name="trade_licence" type="file">
                                     </div>
                                 </div>
-                            
                             <hr>
                         </div>
                     </div>
                     <button data-repeater-create="" class="btn btn-info waves-effect waves-light">Save Changes
                     </button>
-                    <a href="{{route('register.supplier.list')}}" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <a href="{{route('register.organization.list')}}" class="btn btn-secondary" data-dismiss="modal">Close</a>
                 </form>
                 </div>
             </div>
@@ -69,7 +68,7 @@
                 </div>
             </div>
                 <div class="table-responsive">
-                    <table class="table" id="supplierTable">
+                    <table class="table" id="organizationTable">
                         <thead>
                             <tr>
                                 <th scope="col">S.I</th>
@@ -85,12 +84,16 @@
                         @forelse ($organizations as $organization)
                             <tr>
                                 <td>{{$loop->index+1}}</td>
-                                <td>{{$organization->supplier_type->supplier_type}}</td>
-                                <td>{{$organization->organization_name}}</td>
-                                <td>{{$organization->owner_name}}</td>
-                                <td>{{$organization->address}}</td>
-                                <td>{{$organization->mobile}}</td>
-                                
+                                <td>{{$organization->supplier_type->supplier_type ?? ''}}</td>
+                                <td>{{$organization->organization_name ?? ''}}</td>
+                                <td>{{$organization->owner_name ?? ''}}</td>
+                                <td>{{$organization->address ?? ''}}</td>
+                                <td>{{$organization->phone ?? ''}}</td>
+                                <td>
+                                    <!-- <a href="{{route('register.organization.show',['organization_id' => $organization->id ?? ''])}}"><i class="font-18 far fa-eye text-info"></i></a> -->
+                                    <a href="{{route('register.organization.edit',['organization_id' => $organization->id ?? ''])}}" class="mx-2"><i class="font-18 far fa-edit text-info"></i></a>
+                                    <a href="{{route('register.organization.destroy',['organization_id' => $organization->id ?? ''])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
+                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -109,8 +112,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#organizationTable').DataTable();
         $('.select-2').select2();
+        $('#organizationTable').DataTable();
 });
 </script>
 @endsection

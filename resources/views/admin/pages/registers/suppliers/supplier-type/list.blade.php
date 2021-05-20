@@ -28,9 +28,9 @@
                         <tbody>
                             @forelse ($supplier_types as $supplier_type)
                             <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$supplier_type->supplier_type}}</td>
-                                <td>{{$supplier_type->description}}</td>
+                                <td>{{$loop->index+1 ?? ''}}</td>
+                                <td>{{$supplier_type->supplier_type ?? ''}}</td>
+                                <td>{{$supplier_type->description ?? ''}}</td>
                                 <td>
                                     <a href="/" data-toggle="modal" data-target="#supplierTypeEditModal" onclick="riseSupplierTypeEditModal('{{$supplier_type->supplier_type}}','{{$supplier_type->description}}','{{$supplier_type->id}}')"><i class="font-18 far fa-edit text-info"></i></a>
                                     <a href="{{route('register.supplier.supplier-type.destroy',['supplier_type_id' => $supplier_type->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>

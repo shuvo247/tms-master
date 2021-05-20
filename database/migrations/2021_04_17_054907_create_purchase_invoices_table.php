@@ -28,6 +28,7 @@ class CreatePurchaseInvoicesTable extends Migration
             $table->float('total_payable');
             $table->float('cash_given');
             $table->float('change');
+            $table->float('due');
             $table->timestamps();
         });
     }

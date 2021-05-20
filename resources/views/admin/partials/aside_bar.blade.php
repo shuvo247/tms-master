@@ -9,26 +9,49 @@
                                 <i class=" mdi mdi-home-outline"></i>
                                 <span class="hide-menu">Dashboard </span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                           class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Product </span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <i class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Product </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="{{route('product.product.list')}}" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Add Product </span></a>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('product.category.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Add Categories </span>
+                                    </a>
+                                 </li>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('product.brand.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Add Brand </span>
+                                    </a>
+                                 </li>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('product.payment-method.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Payment Method </span>
+                                    </a>
+                                 </li>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('product.attribute.list')}}" class="sidebar-link">
+                                    <i class="mdi mdi-minus"></i><span class="hide-menu"> Attribute / Variation </span>
+                                 </a>
+                                 </li>
+                                <li class="sidebar-item">
+                                    <a href="{{route('product.product.add')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Add Product </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{route('product.category.list')}}" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Add Categories </span></a>
-                                 </li>
-                                 <li class="sidebar-item"><a href="{{route('product.brand.list')}}" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Add Brand </span></a>
-                                 </li>
-                                 <li class="sidebar-item"><a href="{{route('product.payment-method.list')}}" class="sidebar-link"><i
-                                    class="mdi mdi-minus"></i><span class="hide-menu"> Payment Method </span></a>
-                                 </li>
-                                 <li class="sidebar-item"><a href="{{route('product.attribute.list')}}" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Attribute / Variation </span></a>
-                                 </li>
-                                 <li class="sidebar-item"><a href="ticket-detail.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Bulk Opening Stock </span></a>
+                                <li class="sidebar-item">
+                                    <a href="{{route('product.product.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Product List </span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item">
+                                    <a href="ticket-detail.html" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Bulk Opening Stock </span>
+                                    </a>
                                  </li>
                             </ul>
                         </li>

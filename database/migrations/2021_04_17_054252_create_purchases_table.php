@@ -16,10 +16,10 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('variant_id');
-            $table->string('variant_value_id');
-            $table->float('purchase_box');
-            $table->float('purchase_pcs');
+            $table->string('product_size_id')->nullable();
+            $table->string('product_grade_id')->nullable();
+            $table->float('purchase_box')->nullable();
+            $table->float('purchase_pcs')->nullable();
             $table->float('purchase_qty_in_sft');
             $table->float('purchase_rate');
             $table->text('discount_type')->comment('Flat, Percentage');

@@ -109,12 +109,13 @@ class ProductAttributeController extends Controller
                     $attribute_value->update();
                   }
             }
-                $value = array_map('intval',$request->attribute_value_id);
-                if (isset($value)) {
-                    $delete_attribute = AttributeValue::whereNotIn('id',$value)
-                                        ->where('attribute_id',$request->attribute_id)
-                                        ->delete();
-                }
+            // Delete Attribute
+            $value = array_map('intval',$request->attribute_value_id);
+            if (isset($value)) {
+                $delete_attribute = AttributeValue::whereNotIn('id',$value)
+                                    ->where('attribute_id',$request->attribute_id)
+                                    ->delete();
+            }
               // Try to Upload New Attribute
               if (isset($request->new_attribute_value)) {
                 $newAttributeCount = count($request->new_attribute_value);

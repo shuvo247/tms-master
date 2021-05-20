@@ -39,9 +39,8 @@ class SupplierController extends Controller
     {
         try {
             $supplier = new Supplier();
-            $supplier->supplier_type_id = $request->supplier_type;
+            $supplier->organization_id = $request->organization_id;
             $supplier->supplier_name = $request->supplier_name;
-            $supplier->organization_name = $request->organization;
             $supplier->address = $request->address;
             $supplier->mobile_number = $request->mobile_number;
             $supplier->alternative_mobile_number = $request->alternative_mobile_number;
@@ -98,9 +97,8 @@ class SupplierController extends Controller
     {
         try {
             $supplier = Supplier::findOrFail($request->supplier_id);
-            $supplier->supplier_type_id = $request->supplier_type;
+            $supplier->organization_id = $request->organization_id;
             $supplier->supplier_name = $request->supplier_name;
-            $supplier->organization_name = $request->organization;
             $supplier->address = $request->address;
             $supplier->mobile_number = $request->mobile_number;
             $supplier->alternative_mobile_number = $request->alternative_mobile_number;

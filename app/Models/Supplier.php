@@ -14,8 +14,8 @@ class Supplier extends Model
         return $this->belongsTo('App\Models\SupplierType','supplier_type_id');
     }
 
-    public function SupplierType($supplier_id)
+    public function organization()
     {
-        return $this->belongsTo('App\Models\SupplierType',$supplier_id);
+        return $this->belongsTo('App\Models\Organization','organization_id');
     }
 }

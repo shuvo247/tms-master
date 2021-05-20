@@ -25,7 +25,7 @@ class SupplierStoreRequest extends FormRequest
     {
         return [
             'supplier_name'                  => 'required',
-            'organization'                   => 'required',
+            'organization_id'                   => 'required',
             'address'                        => 'required',
             'mobile_number'                  => 'required',
             'alternative_mobile_number'      => 'nullable',

@@ -17,23 +17,43 @@
                 <div class="col-5 align-self-center">
                     <h4 class="page-title">All Product </h4>
                 </div>
-                <div class="col-7 align-self-center mb-2">
-                    <div class="d-flex no-block justify-content-end align-items-center">
-                        <a href="{{route('product.product.add')}}" class="btn btn-primary" data-whatever="@mdo">Add Product</a>
-                    </div>
-                </div>
             </div>
                 <div class="table-responsive">
                     <table class="table" id="productTable">
                         <thead>
                             <tr>
                                 <th scope="col">S.I</th>
-                                <th scope="col">Category Name</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Categroy</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Pc's Per Box</th>
+                                <th scope="col">Quantity(sft)</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                             @forelse ($products as $product)
+                                <tr>
+                                    <td>{{$loop->index+1}}</td>
+                                    <td>{{$product->product_name ?? ''}}</td>
+                                    <td>{{$product->category->category_name ?? ''}}</td>
+                                    <td>{{$product->brand->brand_name ?? ''}}</td>
+                                    <td>{{$product->pcs_per_box ?? ''}}</td>
+                                    <td>{{$product->alert_qty ?? ''}}</td>
+                                    <td>
+                                        <a href="{{route('product.product.edit',['product_id' => $product->id])}}">
+                                            <i class="font-18 far fa-edit text-info"></i>
+                                        </a>
+                                        <a href="{{route('product.product.destroy',['product_id' => $product->id ?? ''])}}" class="mx-2">
+                                            <i class="font-18 far fa-trash-alt text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-danger text-center" colspan="7">This table data is empty</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -41,105 +61,13 @@
         </div>
     </div>
 </div>
-@php
-    $getSizeAttributeId = App\Models\ProductAttribute::where('attribute_name','Size')->first();
-    $getGradeAttributeId = App\Models\ProductAttribute::where('attribute_name','Grade')->first();
-@endphp
-@include('admin.pages.products.products.add-product')
 @endsection
 @section('custom_scripts')
 <script src="{{asset('backend/assets/js/select-2.js')}}"></script>
-<script src="{{asset('backend/assets/js/custom/product.js')}}"></script>
 <script>
-    $('#singleProduct').css('display', 'block');
-    $('#variableProduct').css('display', 'none');
-    function getProductTypeChoose() {
-        const producType = $("#getProductType").val();
-        if (producType == 'single') {
-            $('#singleProduct').css('display', 'block');
-            $('#variableProduct').css('display', 'none');
-        } else {
-            $('#singleProduct').css('display', 'none');
-            $('#variableProduct').css('display', 'block');
-        }
-    }
-   $("#addRow").click(function () {
-       var html = '';
-       html += '<div class="recentRow col-12 row" style="margin:0;padding:0">';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<div class="input-group mb-3">';
-       html += '<select class="form-control select-2" name="size_attribute_id[]">';
-       html += '@foreach (App\Models\AttributeValue::where('attribute_id',$getSizeAttributeId->id ?? '')->get() as $value)';
-       html += '<option value="{{$value->id}}">{{$value->attribute_value}}</option>';
-       html += '@endforeach';
-       html += '</select>'
-       html += '<div class="input-group-append">';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<div class="input-group mb-3">';
-       html += '<select class="form-control select-2" name="grade_attribute_id[]">';
-       html += '@foreach (App\Models\AttributeValue::where('attribute_id',$getGradeAttributeId->id ?? '')->get() as $value)';
-       html += '<option value="{{$value->id}}">{{$value->attribute_value}}</option>';
-       html += '@endforeach';
-       html += '</select>'
-       html += '<div class="input-group-append">';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<div class="input-group mb-3">';
-       html += '<input type="text" name="variant_purchase_price[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
-       html += '<div class="input-group-append">';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<div class="input-group mb-3">';
-       html += '<input type="text" name="variant_sell_price[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
-       html += '<div class="input-group-append">';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<div class="input-group mb-3">';
-       html += '<input type="text" name="quantity[]" class="form-control m-input" placeholder="Enter Value" autocomplete="off">';
-       html += '<div class="input-group-append">';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += ' <div class="form-group col-md-2">';
-       html += '<div id="inputFormRow">';
-       html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       html += '</div>';
-       $('#newRow').append(html);
-       $('.select-2').select2();
-   });
- 
-   // remove row
-   $(document).on('click', '#removeRow', function () {
-       $(this).closest('.recentRow').remove();
-   });
     // Select 2 and DataTable
     $('#productTable').DataTable();
     $('.select-2').select2();
-
 </script>
 
 @endsection

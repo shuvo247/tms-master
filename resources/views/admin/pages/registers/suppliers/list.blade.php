@@ -18,9 +18,9 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="organzationName">Select Type <span class="text-danger">*</span></label>
-                                        <select class="form-control select-2" id="organzationName" name="supplier_type" required>
-                                            @foreach (App\Models\SupplierType::all() as $type)
-                                                <option value="{{$type->id}}">{{$type->supplier_type}}</option>
+                                        <select class="form-control select-2" id="organzationName" name="organization_id" required>
+                                            @foreach (App\Models\Organization::all() as $organzation)
+                                                <option value="{{$organzation->id}}">{{$organzation->organization_name ?? ''}}</option>
                                             @endforeach
                                           </select>
                                     </div>
@@ -29,19 +29,15 @@
                                         <input name="supplier_name" type="supplierName" class="form-control" id="text" placeholder="Ex: John Doe" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="organization">Organization <span class="text-danger">*</span></label>
-                                        <input name="organization" type="text" class="form-control" id="organization" placeholder="Ex : Color Ceramics Ltd" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
                                         <label for="address">Address <span class="text-danger">*</span></label>
                                         <textarea name="address" class="form-control" id="address" rows="1" placeholder="Ex: 38 North Jatrabari,Dhaka" required></textarea>
                                     </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="mobileNumber">Mobile Number <span class="text-danger">*</span></label>
                                         <input name="mobile_number" type="text" class="form-control" id="mobileNumber" placeholder="Ex: +88017xxxxxxxx" required>
                                     </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="alternativeNumber">Alternative Number</label>
                                         <input name="alternative_mobile_number" type="text" class="form-control" id="alternativeNumber" placeholder="Ex: +88017xxxxxxxx">
@@ -81,7 +77,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">S.I</th>
-                                <th scope="col">Supplier Type</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Organization</th>
                                 <th scope="col">Address</th>
@@ -92,16 +87,15 @@
                         <tbody>
                             @forelse ($suppliers as $supplier)
                             <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$supplier->supplier_type->supplier_type}}</td>
-                                <td>{{$supplier->supplier_name}}</td>
-                                <td>{{$supplier->organization_name}}</td>
-                                <td>{{$supplier->address}}</td>
-                                <td>{{$supplier->mobile_number}}</td>
+                                <td>{{$loop->index+1 ?? ''}}</td>
+                                <td>{{$supplier->supplier_name ?? ''}}</td>
+                                <td>{{$supplier->organization->organization_name ?? ''}}</td>
+                                <td>{{$supplier->address ?? ''}}</td>
+                                <td>{{$supplier->mobile_number ?? ''}}</td>
                                 <td>
-                                    <a href="{{route('register.supplier.show',['supplier_id' => $supplier->id])}}"><i class="font-18 far fa-eye text-info"></i></a>
-                                    <a href="{{route('register.supplier.edit',['supplier_id' => $supplier->id])}}" class="mx-2"><i class="font-18 far fa-edit text-info"></i></a>
-                                    <a href="{{route('register.supplier.destroy',['supplier_id' => $supplier->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
+                                    <a href="{{route('register.supplier.show',['supplier_id' => $supplier->id ?? ''])}}"><i class="font-18 far fa-eye text-info"></i></a>
+                                    <a href="{{route('register.supplier.edit',['supplier_id' => $supplier->id ?? ''])}}" class="mx-2"><i class="font-18 far fa-edit text-info"></i></a>
+                                    <a href="{{route('register.supplier.destroy',['supplier_id' => $supplier->id ?? ''])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
                                 </td>
                             </tr>
                             @empty
@@ -121,8 +115,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#supplierTable').DataTable();
         $('.select-2').select2();
+        $('#supplierTable').DataTable();
 });
 </script>
 @endsection

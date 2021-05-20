@@ -36,6 +36,18 @@ Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],fu
             'uses'   => 'ProductController@store',
             'as'     => 'store'
         ]);
+        Route::GET('/edit',[
+            'uses'   => 'ProductController@edit',
+            'as'     => 'edit'
+        ]);
+        Route::POST('/update',[
+            'uses'   => 'ProductController@update',
+            'as'     => 'update'
+        ]);
+        Route::GET('/destroy',[
+            'uses'   => 'ProductController@destroy',
+            'as'     => 'destroy'
+        ]);
     });
 
     // Product Route End
@@ -136,6 +148,22 @@ Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],
         Route::POST('/store',[
             'uses'     => 'OrganizationController@store',
             'as'      => 'store'
+        ]);
+        Route::POST('/update',[
+            'uses'  => 'OrganizationController@update',
+            'as'    => 'update'
+        ]);
+        Route::GET('/edit',[
+            'uses'   => 'OrganizationController@edit',
+            'as'     => 'edit'
+        ]);
+        Route::GET('/destroy',[
+            'uses'  => 'OrganizationController@destroy',
+            'as'    => 'destroy'
+        ]);
+        Route::GET('/show',[
+            'uses'   => 'OrganizationController@show',
+            'as'     => 'show'
         ]);
     });
 

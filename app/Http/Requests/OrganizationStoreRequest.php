@@ -27,9 +27,8 @@ class OrganizationStoreRequest extends FormRequest
             'organization_type'     => 'required',
             'organization_name'     => 'required',
             'owner_name'            => 'required',
-            'phone'                 => 'required',
+            'mobile_number'         => 'required',
             'address'               => 'required',
-            'trade_licence'         => 'image|nullable',
         ];
     }
 }
