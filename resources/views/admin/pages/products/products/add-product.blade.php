@@ -8,7 +8,8 @@
 </style>
 @endsection
 @section('content')
-<div class="col-12">
+<div class="col-12">     
+@include('admin.partials.flash')
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Add Product</h4>

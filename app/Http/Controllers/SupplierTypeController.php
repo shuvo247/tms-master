@@ -113,7 +113,7 @@ class SupplierTypeController extends Controller
             $supplier_type = SupplierType::findOrFail($request->supplier_type_id);
             $supplier_type->delete();
             Session::flash('alert-danger', 'Supplier type deleted successfully!!');
-            return back();
+            return redirect()->route('register.supplier.supplier-type.list');
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();

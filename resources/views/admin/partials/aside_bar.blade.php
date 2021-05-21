@@ -9,6 +9,14 @@
                                 <i class=" mdi mdi-home-outline"></i>
                                 <span class="hide-menu">Dashboard </span></a>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                           class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Purchase </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="ticket-list.html" class="sidebar-link"><i
+                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket List </span></a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                         <i class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Product </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -48,7 +56,7 @@
                                     </a>
                                 </li>
                                  <li class="sidebar-item">
-                                    <a href="ticket-detail.html" class="sidebar-link">
+                                    <a href="" class="sidebar-link">
                                        <i class="mdi mdi-minus"></i>
                                        <span class="hide-menu"> Bulk Opening Stock </span>
                                     </a>
@@ -79,18 +87,6 @@
                                        <span class="hide-menu"> Add Reference </span>
                                     </a>
                                  </li>
-
-                                
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                           class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Purchase </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="ticket-list.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket List </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="ticket-detail.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket Detail </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
@@ -125,16 +121,6 @@
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                            class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Report </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="ticket-list.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket List </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="ticket-detail.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket Detail </span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                           class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Register </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="ticket-list.html" class="sidebar-link"><i
                                    class="mdi mdi-minus"></i><span class="hide-menu"> Ticket List </span></a>

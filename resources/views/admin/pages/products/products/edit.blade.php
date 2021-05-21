@@ -9,6 +9,7 @@
 @endsection
 @section('content')
 <div class="col-12">
+@include('admin.partials.flash')
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Edit Product</h4>
@@ -18,14 +19,6 @@
                         <form action="{{route('product.product.update',['product_id' => $product->id])}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-row">
-                                <!-- <div class="form-group col-md-3">
-                                    <label for="supplierName">Select Supplier <span class="text-danger">*</span></label>
-                                    <select class="form-control select-2" id="supplierName" name="supplier_id" required>
-                                        @foreach (App\Models\Supplier::all() as $supplier)
-                                            <option value="{{$supplier->id}}">{{$supplier->supplier_name}} | {{$supplier->organization_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div> -->
                                 <div class="form-group col-md-3">
                                     <label for="productCategory">Category <span class="text-danger">*</span></label>
                                     <select class="form-control select-2" id="productCategory" name="category_id">
@@ -42,14 +35,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <!-- <div class="form-group col-md-3">
-                                    <label for="paymentMethod">Payment Method <span class="text-danger">*</span></label>
-                                    <select class="form-control select-2" id="paymentMethod" name="payment_method_id" required>
-                                        @foreach (App\Models\PaymentMethod::all() as $payment_method)
-                                            <option value="{{$payment_method->id}}">{{$payment_method->method_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div> -->
                                 <div class="form-group col-md-3">
                                     <label for="productName">Product Name <span class="text-danger">*</span></label>
                                     <input name="product_name" type="text" class="form-control" id="productName" value="{{$product->product_name ?? ''}}">
@@ -202,18 +187,6 @@
 <script src="{{asset('backend/assets/js/select-2.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom/product.js')}}"></script>
 <script>
-    // $('#singleProduct').css('display', 'block');
-    // $('#variableProduct').css('display', 'none');
-    // function getProductTypeChoose() {
-    //     const producType = $("#getProductType").val();
-    //     if (producType == 'single') {
-    //         $('#singleProduct').css('display', 'block');
-    //         $('#variableProduct').css('display', 'none');
-    //     } else {
-    //         $('#singleProduct').css('display', 'none');
-    //         $('#variableProduct').css('display', 'block');
-    //     }
-    // }
    $("#addRow").click(function () {
        var html = '';
        html += '<div class="recentRow col-12 row" style="margin:0;padding:0">';

@@ -134,7 +134,7 @@ class SupplierController extends Controller
             $supplier = Supplier::findOrFail($request->supplier_id);
             $supplier->delete();
             Session::flash('alert-danger', 'Supplier deleted successfully!!');
-            return back();
+            return redirect()->route('register.supplier.list');
         } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();

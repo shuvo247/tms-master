@@ -83,8 +83,9 @@ class ProductController extends Controller
                 $variable_product_stock->save();
               }
         }
-        Session::flash('alert-success', 'Product added Successfully!!');
-        return back();
+            // Variation Product Update
+            Session::flash('alert-success', 'Product updated successfully!!');
+            return redirect()->route('product.product.list');
        } catch (\Throwable $th) {
             Session::flash('alert-danger', 'Something went wrong!!');
             return redirect()->back();
@@ -189,7 +190,7 @@ class ProductController extends Controller
             }
             // Variation Product Update
             Session::flash('alert-success', 'Product updated successfully!!');
-            return redirect()->route('register.product.list');
+            return redirect()->route('product.product.list');
            } catch (\Throwable $th) {
                 Session::flash('alert-danger', 'Something went wrong!!');
                 return redirect()->back();

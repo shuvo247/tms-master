@@ -80,7 +80,15 @@ class ReferenceController extends Controller
     // Delete Reference
     public function destroy(Request $request)
     {
-        return $request;
+        try {
+            $reference = Reference::findOrFail($request->reference_id);
+            $reference->delete();
+            Session::flash('alert-danger', 'Reference deleted successfully!!');
+            return redirect()->route('register.reference.list');
+        } catch (\Throwable $th) {
+            Session::flash('alert-danger', 'Something went wrong!!');
+            return redirect()->back();
+        }
     }
 
 }

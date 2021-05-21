@@ -17,7 +17,7 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label for="organzationName">Select Type <span class="text-danger">*</span></label>
+                                        <label for="organzationName">Select Organization <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="organzationName" name="organization_id" required>
                                             @foreach (App\Models\Organization::all() as $organzation)
                                                 <option value="{{$organzation->id}}">{{$organzation->organization_name ?? '' }} | {{ $organzation->supplier_type->supplier_type }}</option>
