@@ -213,6 +213,29 @@ Route::GROUP(['prefix'=>'register', 'as'=>'register.', 'middleware'=>['auth'] ],
             'as'     => 'show'
         ]);
     });
+    // Reference Route Start
+    Route::GROUP(['prefix' => 'reference','as' => 'reference.'],function(){
+        Route::GET('/list',[
+            'uses'   => 'ReferenceController@index',
+            'as'     => 'list'
+        ]);
+        Route::POST('/store',[
+            'uses'   => 'ReferenceController@store',
+            'as'     => 'store'
+        ]);
+        Route::GET('/edit',[
+            'uses'   => 'ReferenceController@edit',
+            'as'     => 'edit'
+        ]);
+        Route::GET('/destroy',[
+            'uses'   => 'ReferenceController@destroy',
+            'as'     => 'destroy'
+        ]);
+        Route::POST('/update',[
+            'uses'   => 'ReferenceController@update',
+            'as'     => 'update'
+        ]);
+    });
 });
 // Register Route End
 

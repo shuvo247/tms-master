@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     use HasFactory;
+
+    public function organization()
+    {
+        return $this->belongsTo('App\Models\Organization','organization_id');
+    }
 }

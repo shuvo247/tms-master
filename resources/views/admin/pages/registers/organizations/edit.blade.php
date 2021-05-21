@@ -17,7 +17,7 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label for="supplierName">Supplier Type <span class="text-danger">*</span></label>
+                                        <label for="supplierName">Select Type <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="supplierName" name="organization_id">
                                             @foreach (App\Models\SupplierType::all() as $type)
                                                 <option value="{{$type->id}}" @if($type->id == $organization->organization_type) selected @endif>{{$type->supplier_type}}</option>

@@ -14,7 +14,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                  <li class="sidebar-item">
                                     <a href="{{route('product.category.list')}}" class="sidebar-link">
-                                       <i class="mdi mdi-minus"></i>
+                                    <i class="mdi mdi-minus"></i>
                                        <span class="hide-menu"> Add Categories </span>
                                     </a>
                                  </li>
@@ -73,6 +73,13 @@
                                        <span class="hide-menu"> Add Supplier </span>
                                     </a>
                                  </li>
+                                 <li class="sidebar-item">
+                                    <a href="{{route('register.reference.list')}}" class="sidebar-link">
+                                       <i class="mdi mdi-minus"></i>
+                                       <span class="hide-menu"> Add Reference </span>
+                                    </a>
+                                 </li>
+
                                 
                             </ul>
                         </li>

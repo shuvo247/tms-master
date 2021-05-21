@@ -17,7 +17,7 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label for="supplierName">Supplier Type <span class="text-danger">*</span></label>
+                                        <label for="supplierName">Select Type <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="supplierName" name="organization_type">
                                             @foreach (App\Models\SupplierType::all() as $type)
                                                 <option value="{{$type->id}}">{{$type->supplier_type}}</option>
@@ -81,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse ($organizations as $organization)
+                            @forelse ($organizations as $organization)
                             <tr>
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$organization->supplier_type->supplier_type ?? ''}}</td>

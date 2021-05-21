@@ -20,7 +20,7 @@
                                         <label for="organzationName">Select Type <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="organzationName" name="organization_id" required>
                                             @foreach (App\Models\Organization::all() as $organzation)
-                                                <option value="{{$organzation->id}}">{{$organzation->organization_name ?? ''}}</option>
+                                                <option value="{{$organzation->id}}">{{$organzation->organization_name ?? '' }} | {{ $organzation->supplier_type->supplier_type }}</option>
                                             @endforeach
                                           </select>
                                     </div>
