@@ -20,6 +20,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Purchase Route Start
+Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']],function(){
+    Route::GET('/create',[
+        'uses'      => 'PurchaseController@create',
+        'as'        => 'create'
+    ]);
+});
+
+
+// Purchase Route End
+
+
+
 // Product Route Start 
 Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],function(){
     // Product Route Start

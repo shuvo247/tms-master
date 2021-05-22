@@ -32,7 +32,7 @@ class ProductController extends Controller
     {
         $productAttribute = ProductAttribute::all();
         $attributeValue = AttributeValue::all();
-        return view('admin.pages.products.products.add-product',compact('productAttribute','attributeValue'));
+        return view('admin.pages.products.products.create',compact('productAttribute','attributeValue'));
     }
 
     /**

@@ -46,6 +46,12 @@ class ProductAttributeController extends Controller
             $product_attribute->save();
             $count = count($request->attribute_value);
             for ($i=0; $i < $count; $i++) { 
+             {{--   <?php
+                    $string = '8.455X12.34Inch';
+                    preg_match_all('/\d+(\.\d+)?/', $string, $matches);
+                    print_r($matches); 
+                    ?> --}} 
+
                 $attribute_value = new AttributeValue();
                 $attribute_value->attribute_id = $product_attribute->id;
                 $attribute_value->attribute_value = $request->attribute_value[$i];

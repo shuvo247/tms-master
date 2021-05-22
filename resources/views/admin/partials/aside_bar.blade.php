@@ -12,8 +12,8 @@
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                            class="mdi mdi-bookmark-plus-outline"></i><span class="hide-menu">Purchase </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="ticket-list.html" class="sidebar-link"><i
-                                   class="mdi mdi-minus"></i><span class="hide-menu"> Ticket List </span></a>
+                                <li class="sidebar-item"><a href="{{route('purchase.create')}}" class="sidebar-link"><i
+                                   class="mdi mdi-minus"></i><span class="hide-menu"> Add Purchase </span></a>
                                 </li>
                             </ul>
                         </li>
