@@ -27,6 +27,14 @@ Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']
         'uses'      => 'PurchaseController@create',
         'as'        => 'create'
     ]);
+    Route::POST('/store',[
+        'uses'      => 'PurchaseController@store',
+        'as'        => 'store'
+    ]);
+    Route::GET('/product-details',[
+        'uses'      => 'PurchaseController@productDetails',
+        'as'        => 'product_details'
+    ]);
 });
 
 

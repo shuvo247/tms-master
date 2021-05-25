@@ -23,6 +23,8 @@ class CreateVariableProductStocksTable extends Migration
             $table->float('selling_price');
             $table->float('qty_in_sft');
             $table->float('sft_sell')->nullable();
+            $table->float('sft_in_a_box')->nullable();
+            $table->float('sft_in_a_pcs')->nullable();
             $table->float('box_sell')->nullable();
             $table->float('barcode')->nullable();
             $table->timestamps();

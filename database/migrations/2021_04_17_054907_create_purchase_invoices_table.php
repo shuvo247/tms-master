@@ -15,16 +15,16 @@ class CreatePurchaseInvoicesTable extends Migration
     {
         Schema::create('purchase_invoices', function (Blueprint $table) {
             $table->id();
-            $table->integer('supplier_id');
-            $table->text('note');
-            $table->string('purchase_date');
             $table->integer('purchase_id');
+            $table->integer('supplier_id');
+            $table->text('note')->nullable();
+            $table->string('purchase_date');
             $table->float('sub_total');
-            $table->string('vat_in')->comment('Flat,Percentage');
-            $table->float('vat');
+            $table->string('vat_in')->comment('Flat,Percentage')->nullable();
+            $table->float('vat')->nullable();
             $table->string('discount_in')->comment('Flat,Percentage');
-            $table->float('discount');
-            $table->text('discount_note');
+            $table->float('discount')->nullable();
+            $table->text('discount_note')->nullable();
             $table->float('total_payable');
             $table->float('cash_given');
             $table->float('change');

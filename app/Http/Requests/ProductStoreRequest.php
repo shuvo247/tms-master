@@ -29,7 +29,7 @@ class ProductStoreRequest extends FormRequest
             'brand_id'                   => 'required',
             'payment_method_id'          => 'nullable',
             'product_name'               => 'required',
-            'pcs_per_box'                => 'required',
+            'pcs_per_box'                => 'nullable',
             'alert_quantity'             => 'nullable',
             'image'                      => 'image|nullable'
         ];

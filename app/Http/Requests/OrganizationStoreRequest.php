@@ -26,7 +26,7 @@ class OrganizationStoreRequest extends FormRequest
         return [
             'organization_type'     => 'required',
             'organization_name'     => 'required',
-            'owner_name'            => 'required',
+            'owner_name'            => 'nullable',
             'mobile_number'         => 'required',
             'address'               => 'required',
         ];

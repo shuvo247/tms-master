@@ -11,6 +11,8 @@ use Auth;
 use App\Models\VariableProductStock;
 use App\Http\Requests\ProductStoreRequest;
 use Session;
+use App\Helpers\Helper;
+
 class ProductController extends Controller
 {
     /**
@@ -69,15 +71,21 @@ class ProductController extends Controller
             $product_stock->save();
         }
         if($request->product_type == 'variable'){
+        
             $product->product_variant = '1';
             $product->save();
             $count = count($request->size_attribute_id);
             for ($i=0; $i < $count; $i++) { 
+                // Calculate Sft in a Pc's
+                
+                // End Calculate Sft in a Pc's
                 $variable_product_stock = new VariableProductStock();
                 $variable_product_stock->product_id = $product->id;
                 $variable_product_stock->size_attribute_id = $request->size_attribute_id[$i];
                 $variable_product_stock->grade_attribute_id = $request->grade_attribute_id[$i];
                 $variable_product_stock->purchase_price = $request->variant_purchase_price[$i];
+                $variable_product_stock->sft_in_a_box = (Helper::SftInAPcs($request->size_attribute_id[$i])/144)*$request->pcs_per_box;
+                $variable_product_stock->sft_in_a_pcs = Helper::SftInAPcs($request->size_attribute_id[$i])/144;
                 $variable_product_stock->selling_price = $request->variant_sell_price[$i];
                 $variable_product_stock->qty_in_sft = $request->quantity[$i];
                 $variable_product_stock->save();

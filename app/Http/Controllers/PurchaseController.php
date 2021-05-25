@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\VariableProductStock;
 class PurchaseController extends Controller
 {
     /**
@@ -16,6 +17,13 @@ class PurchaseController extends Controller
         //
     }
 
+    public function productDetails(Request $request)
+    {
+        $productId = trim($request->product_id,'variable_');
+        $getVariableProductInfo = VariableProductStock::findOrFail($productId);
+        $getVariableDefaultInfo = Product::findOrFail($getVariableProductInfo->product_id);
+        return view('admin.pages.purchases.stock',compact('getVariableProductInfo'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -23,8 +31,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $product  = Product::all();
-        return view('admin.pages.purchases.create',compact('product'));
+        $products  = Product::all();
+        return view('admin.pages.purchases.create',compact('products'));
     }
 
     /**
@@ -35,7 +43,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

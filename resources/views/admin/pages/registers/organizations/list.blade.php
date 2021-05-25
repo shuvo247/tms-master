@@ -25,7 +25,7 @@
                                           </select>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="supplierName">Organization Name <span class="text-danger">*</span></label>
+                                        <label for="supplierName">Organization Name</label>
                                         <input name="organization_name" type="supplierName" class="form-control" id="text" placeholder="Ex : Color Ceramics Ltd">
                                     </div>
                                     <div class="form-group col-md-3">

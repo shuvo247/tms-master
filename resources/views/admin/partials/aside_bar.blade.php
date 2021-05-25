@@ -55,12 +55,6 @@
                                        <span class="hide-menu"> Product List </span>
                                     </a>
                                 </li>
-                                 <li class="sidebar-item">
-                                    <a href="" class="sidebar-link">
-                                       <i class="mdi mdi-minus"></i>
-                                       <span class="hide-menu"> Bulk Opening Stock </span>
-                                    </a>
-                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-email-outline"></i><span

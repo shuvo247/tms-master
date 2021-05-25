@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->string('image')->nullable();
             $table->integer('product_variant')->comment('1 = Yes, 0 = No');            
-            $table->integer('pcs_per_box');
+            $table->integer('pcs_per_box')->nullable();
             $table->integer('alert_qty')->nullable();
             $table->float('total_sft_sell')->nullable();
             $table->float('total_box_sell')->nullable();
