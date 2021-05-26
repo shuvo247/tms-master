@@ -115,7 +115,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Price</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_price[]" class="form-control m-input" placeholder="Price" autocomplete="off">
+                                                <input type="text" name="purchase_price[]" id="purchasePrice" class="form-control m-input" placeholder="Price" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -304,6 +304,11 @@
            },function(data){
             $('#Stock').empty().html(data);
         });
+        $.get("{{route('purchase.product_info')}}",{
+           product_id : productId
+           },function(data){
+            $('#purchasePrice').val(data.purchase_price);
+        });
     });
     $(document).ready(function() {
         function addCounter() {     //this function set the counter variable value static.
@@ -370,7 +375,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_price[]" class="form-control m-input" placeholder="Price" autocomplete="off">';
+            html += '<input type="text" name="purchase_price[]" id="purchasePrice'+j+'" class="form-control m-input" placeholder="Price" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -423,6 +428,11 @@
            product_id : productId
            },function(data){
             $('#Stock'+j).empty().html(data);
+        });
+        $.get("{{route('purchase.product_info')}}",{
+           product_id : productId
+           },function(data){
+            $('#purchasePrice'+j).val(data.purchase_price);
         });
     });
        $('.select-2').select2();

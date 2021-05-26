@@ -1,1 +1,1 @@
-Stock : {{ $getVariableProductInfo->purchase_price ?? '' }}
+Stock : {{ $ProductStockInfo->purchase_price ?? '' }}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\VariableProductStock;
+use App\Models\ProductStock;
 class PurchaseController extends Controller
 {
     /**
@@ -16,13 +17,31 @@ class PurchaseController extends Controller
     {
         //
     }
-
+    // Return view for show stock Details
     public function productDetails(Request $request)
     {
-        $productId = trim($request->product_id,'variable_');
-        $getVariableProductInfo = VariableProductStock::findOrFail($productId);
-        $getVariableDefaultInfo = Product::findOrFail($getVariableProductInfo->product_id);
-        return view('admin.pages.purchases.stock',compact('getVariableProductInfo'));
+        $productId = $request->product_id;
+        $productIdArray = explode("_",$productId);
+        if($productIdArray[0] == 'single'){
+            $ProductStockInfo = ProductStock::where('product_id',$productIdArray[1])->first();
+        }else{
+            $ProductStockInfo = VariableProductStock::findOrFail($productIdArray[1]);
+        }
+        return view('admin.pages.purchases.stock',compact('ProductStockInfo'));
+    }
+
+    // Purchase Product Info
+
+    public function productInfo(Request $request)
+    {
+        $productId = $request->product_id;
+        $productIdArray = explode("_",$productId);
+        if($productIdArray[0] == 'single'){
+            $ProductStockInfo = ProductStock::where('product_id',$productIdArray[1])->first();
+        }else{
+            $ProductStockInfo = VariableProductStock::findOrFail($productIdArray[1]);
+        }
+        return $ProductStockInfo;
     }
     /**
      * Show the form for creating a new resource.

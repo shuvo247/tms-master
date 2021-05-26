@@ -35,6 +35,10 @@ Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']
         'uses'      => 'PurchaseController@productDetails',
         'as'        => 'product_details'
     ]);
+    Route::GET('/product-info',[
+        'uses'     => 'PurchaseController@productInfo',
+        'as'       => 'product_info'
+     ]);
 });
 
 
