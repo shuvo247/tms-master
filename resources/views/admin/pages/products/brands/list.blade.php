@@ -28,7 +28,7 @@
                             @forelse ($brands as $brand)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>{{$brand->brand_name}}</td>
+                                    <td>{{$brand->brand_name ?? ''}}</td>
                                     <td>
                                         <a href="/" data-toggle="modal" data-target="#brandEditModal" onclick="riseBrandEditModal('{{$brand->brand_name}}','{{$brand->id}}')"><i class="font-18 far fa-edit text-info"></i></a>
                                         <a href="{{route('product.brand.destroy',['brand_id' => $brand->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>

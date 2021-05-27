@@ -15,7 +15,7 @@ class ProductAttributeController extends Controller
      */
     public function index()
     {
-        $attributes = ProductAttribute::all();
+        $attributes = ProductAttribute::orderByDesc('id')->get();
         return view('admin.pages.products.attributes.list',compact('attributes'));
     }
 
@@ -82,7 +82,7 @@ class ProductAttributeController extends Controller
     public function edit(Request $request)
     {
         $attribute = ProductAttribute::findOrFail($request->attribute_id);
-        $attributes = ProductAttribute::all();
+        $attributes = ProductAttribute::orderByDesc('id')->get();
         return view('admin.pages.products.attributes.edit',compact('attribute','attributes'));
     }
 

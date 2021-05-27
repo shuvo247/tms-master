@@ -19,8 +19,8 @@
                                     <div class="form-group col-md-3">
                                         <label for="organzationName">Select Organization <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="organzationName" name="organization_id" required>
-                                            @foreach (App\Models\Organization::all() as $organzation)
-                                                <option value="{{$organzation->id}}">{{$organzation->organization_name ?? '' }} | {{ $organzation->supplier_type->supplier_type }}</option>
+                                            @foreach (App\Models\Organization::all() as $organization)
+                                                <option value="{{$organzation->id}}">{{$organization->organization_name ?? '' }} | {{ $organization->supplier_type->supplier_type }}</option>
                                             @endforeach
                                           </select>
                                     </div>

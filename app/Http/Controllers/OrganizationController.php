@@ -15,7 +15,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $organizations = Organization::all();
+        $organizations = Organization::orderByDesc('id')->get();
         return view('admin.pages.registers.organizations.list',compact('organizations'));
     }
 
@@ -80,7 +80,7 @@ class OrganizationController extends Controller
     public function edit(Request $request)
     {
         $organization = Organization::findOrFail($request->organization_id);
-        $organizations = Organization::all();
+        $organizations = Organization::orderByDesc('id')->get();
         return view('admin.pages.registers.organizations.edit',compact('organization','organizations'));
     }
 

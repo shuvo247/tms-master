@@ -29,7 +29,7 @@
                                         <input name="organization_name" type="supplierName" class="form-control" id="text" placeholder="Ex : Color Ceramics Ltd">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="owner_name">Owner Name <span class="text-danger">*</span></label>
+                                        <label for="owner_name">Owner Name</label>
                                         <input name="owner_name" type="text" class="form-control" id="owner_name" placeholder="Ex: John Doe">
                                     </div>
                                     <div class="form-group col-md-3">

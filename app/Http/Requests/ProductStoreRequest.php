@@ -24,7 +24,6 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'supplier_id'                => 'nullable',
             'category_id'                => 'required',
             'brand_id'                   => 'required',
             'payment_method_id'          => 'nullable',

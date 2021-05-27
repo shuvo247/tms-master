@@ -50,7 +50,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $products  = Product::all();
+        $products  = Product::orderByDesc('id')->get();
         return view('admin.pages.purchases.create',compact('products'));
     }
 

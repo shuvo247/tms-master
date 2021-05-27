@@ -18,8 +18,9 @@ class CreateExpensesTable extends Migration
             $table->string('expense_date');
             $table->integer('expense_category_id');
             $table->integer('payment_method_id');
-            $table->string('account_information');
-            $table->text('note');
+            $table->integer('expense_amount');
+            $table->string('account_information')->nullable();
+            $table->text('note')->nullable();
             $table->integer('status')->default('1');
             $table->timestamps();
         });

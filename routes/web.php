@@ -21,6 +21,40 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Expenses Route Start
+Route::GROUP(['prefix' => 'account', 'as' => 'account.','middleware' => ['auth']],function(){
+    Route::GROUP(['prefix' => 'expenses','as' => 'expenses.'],function(){
+        Route::GET('/list',[
+            'uses'  => 'ExpensesController@index',
+            'as'    => 'list'
+        ]);
+        Route::POST('/store',[
+            'uses'  => 'ExpensesController@store',
+            'as'    => 'store'
+        ]);
+        Route::GROUP(['prefix' => 'category','as' => 'category.'],function(){
+            Route::POST('/store',[
+                'uses'  => 'ExpenseCategoryController@store',
+                'as'    => 'store'
+            ]);
+            Route::POST('/update',[
+                'uses'  => 'ExpenseCategoryController@update',
+                'as'    => 'update'
+            ]);
+            Route::GET('/destroy',[
+                'uses'   => 'ExpenseCategoryController@destroy',
+                'as'     => 'destroy'
+            ]);
+        });
+    });
+});
+
+
+// Expenses Route End
+
+
+
+
 // Purchase Route Start
 Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']],function(){
     Route::GET('/create',[
@@ -43,8 +77,6 @@ Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']
 
 
 // Purchase Route End
-
-
 
 // Product Route Start 
 Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],function(){

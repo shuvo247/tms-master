@@ -1,1 +1,1 @@
-Stock : {{ $ProductStockInfo->purchase_price ?? '' }}
+Stock : <span> @if(isset($ProductStockInfo->qty_in_sft)) {{$ProductStockInfo->qty_in_sft . ' SFT' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_box)) {{$ProductStockInfo->total_available_box . ' BOX' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_pcs)) {{$ProductStockInfo->total_available_pcs . ' PCS' }} @endif</span> <span id="sftInABox" style="display:none;">@if(isset($ProductStockInfo->sft_in_a_box)) {{$ProductStockInfo->sft_in_a_box }} @endif</span>

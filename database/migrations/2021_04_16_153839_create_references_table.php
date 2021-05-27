@@ -16,7 +16,7 @@ class CreateReferencesTable extends Migration
         Schema::create('references', function (Blueprint $table) {
             $table->id();
             $table->string('referrer_name');
-            $table->string('organization_name');
+            $table->string('organization_id');
             $table->string('address');
             $table->string('mobile_number');
             $table->string('alternative_mobile_number')->nullable();

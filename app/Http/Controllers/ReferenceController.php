@@ -11,7 +11,7 @@ class ReferenceController extends Controller
 {
     public function index()
     {
-        $referencess = Reference::all();
+        $referencess = Reference::orderByDesc('id')->get();
         return view('admin.pages.registers.references.list',compact('referencess'));
     }
     // Store Reference
@@ -46,7 +46,7 @@ class ReferenceController extends Controller
     public function edit(Request $request)
     {
         $reference = Reference::findOrFail($request->reference_id);
-        $referencess = Reference::all();
+        $referencess = Reference::orderByDesc('id')->get();
         return view('admin.pages.registers.references.edit',compact('reference','referencess'));
     }
 

@@ -20,9 +20,9 @@ class CreateDamagesTable extends Migration
             $table->integer('product_id')->comment('Here will be product ID or product stock ID');
             $table->string('variant_id')->nullable();
             $table->string('variant_value_id')->nullable();
-            $table->float('damaged_box');
-            $table->float('damaged_pcs');
-            $table->float('damage_qty_in_sft');
+            $table->float('damaged_box',20,2);
+            $table->float('damaged_pcs',20,2);
+            $table->float('damage_qty_in_sft',20,2);
             $table->integer('status')->default('1');
             $table->timestamps();
         });

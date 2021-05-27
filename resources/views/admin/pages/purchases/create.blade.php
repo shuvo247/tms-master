@@ -53,7 +53,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-4">
                             <div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" for="productname" class="col-md-4 col-form-label">Date * </label>
@@ -91,7 +90,7 @@
                                         <label for="attributeName" class="col-form-label">Box</label>
                                             <div id="inputFormRow">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_box[]" class="form-control m-input" placeholder="Box" autocomplete="off">
+                                                <input type="number" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +98,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Pcs</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
+                                                <input type="number" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +141,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Total</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="total[]" class="form-control m-input" placeholder="Total" autocomplete="off">
+                                                <input type="text" id="purchaseProductTotal" name="total[]" class="form-control m-input" placeholder="Total" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -298,6 +297,7 @@
 <script src="{{asset('backend')}}/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
     $('#selectedProduct').change(function(){
+    // Get Product Details
        var productId = $(this).val();
        $.get("{{route('purchase.product_details')}}",{
            product_id : productId
@@ -310,6 +310,16 @@
             $('#purchasePrice').val(data.purchase_price);
         });
     });
+    // End Get Product Details
+    $('#purchaseBoxValue').keyup(function(){
+        var sftInABox = $('#sftInABox').text();
+        var box = $(this).val();
+        var purchasePrice = $('#purchasePrice').val();
+        $('#purchaseProductTotal').val(sftInABox*box*purchasePrice);
+    });
+    // Calculate Box Value
+    // End Calculate Box Value
+
     $(document).ready(function() {
         function addCounter() {     //this function set the counter variable value static.
         var cust_count = 0;
@@ -328,6 +338,7 @@
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
             html += '<select class="form-control select-2 selectOption" id="selectNewRowProduct'+j+'" name="product_id[]">';
+            html += '<option> -- Select Product -- </option>';
             html += '@foreach ($products as $product)';
             html += '@foreach($product->variable_product_stock as $stock)';
             html += '<option value="variable_{{ $stock->id }}">{{$product->product_name}} | {{$stock->size_attribute->attribute_value}} | {{$stock->grade_attribute->attribute_value}} | {{$product->category->category_name}} | {{$product->brand->brand_name}} </option>';
@@ -338,7 +349,7 @@
             html += '@endforeach';
             html += '</select>';
             html += '<div id="Stock'+j+'">';
-            html += '@include('admin.pages.purchases.stock')';
+            html += '@include("admin.pages.purchases.stock")';
             html += '</div>'
             html += '<div class="input-group-append">';
             html += '</div>';

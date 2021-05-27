@@ -16,17 +16,17 @@ class CreateProductStocksTable extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('sku')->nullable();
-            $table->float('purchase_price');
-            $table->float('selling_price');
-            $table->float('qty_in_sft');
-            $table->float('barcode')->nullable();
-            $table->float('sft_in_a_box')->nullable();
-            $table->float('sft_in_a_pcs')->nullable();
-            $table->float('total_box_sell')->nullable();
-            $table->float('total_pcs_sell')->nullable();
-            $table->float('total_sft_sell')->nullable();
-            $table->float('total_available_box')->nullable();
-            $table->float('total_available_pcs')->nullable();
+            $table->float('purchase_price',20,2);
+            $table->float('selling_price',20,2);
+            $table->float('qty_in_sft',20,2);
+            $table->float('barcode',20,2)->nullable();
+            $table->float('sft_in_a_box',20,2)->nullable();
+            $table->float('sft_in_a_pcs',20,2)->nullable();
+            $table->float('total_box_sell',20,2)->nullable();
+            $table->float('total_pcs_sell',20,2)->nullable();
+            $table->float('total_sft_sell',20,2)->nullable();
+            $table->float('total_available_box',20,2)->nullable();
+            $table->float('total_available_pcs',20,2)->nullable();
             $table->timestamps();
         });
     }

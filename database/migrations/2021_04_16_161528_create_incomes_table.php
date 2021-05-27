@@ -18,8 +18,9 @@ class CreateIncomesTable extends Migration
             $table->string('income_date');
             $table->integer('income_category_id');
             $table->integer('payment_method_id');
-            $table->string('account_information');
-            $table->text('note');
+            $table->integer('income_amount');
+            $table->string('account_information')->nullable();
+            $table->text('note')->nullable();
             $table->integer('status')->default('1');
             $table->timestamps();
         });

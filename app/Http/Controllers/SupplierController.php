@@ -15,7 +15,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::orderByDesc('id')->get();
         return view('admin.pages.registers.suppliers.list',compact('suppliers'));
     }
 
@@ -82,7 +82,7 @@ class SupplierController extends Controller
     public function edit(Request $request)
     {
         $supplier = Supplier::findOrFail($request->supplier_id);
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::orderByDesc('id')->get();
         return view('admin.pages.registers.suppliers.edit',compact('supplier','suppliers'));
     }
 

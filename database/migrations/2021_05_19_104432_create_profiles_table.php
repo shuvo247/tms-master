@@ -18,13 +18,13 @@ class CreateProfilesTable extends Migration
             $table->integer('product_id');
             $table->integer('product_stock_id')->nullable();
             $table->integer('variable_product_stock_id')->nullable();
-            $table->float('unit_purchase_price')->nullable();
-            $table->float('unit_sell_price')->nullable();
-            $table->float('total_purchase_sft')->nullable();
-            $table->float('total_sell_sft')->nullable();
-            $table->float('total_purchase_price')->nullable();
-            $table->float('total_sell_price')->nullable();
-            $table->float('profit')->nullable();
+            $table->float('unit_purchase_price',20,2)->nullable();
+            $table->float('unit_sell_price',20,2)->nullable();
+            $table->float('total_purchase_sft',20,2)->nullable();
+            $table->float('total_sell_sft',20,2)->nullable();
+            $table->float('total_purchase_price',20,2)->nullable();
+            $table->float('total_sell_price',20,2)->nullable();
+            $table->float('profit',20,2)->nullable();
             $table->timestamps();
         });
     }
