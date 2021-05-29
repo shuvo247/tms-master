@@ -21,13 +21,14 @@ class PurchaseController extends Controller
     public function productDetails(Request $request)
     {
         $productId = $request->product_id;
+        $idValue = $request->id_value;
         $productIdArray = explode("_",$productId);
         if($productIdArray[0] == 'single'){
             $ProductStockInfo = ProductStock::where('product_id',$productIdArray[1])->first();
         }else{
             $ProductStockInfo = VariableProductStock::findOrFail($productIdArray[1]);
         }
-        return view('admin.pages.purchases.stock',compact('ProductStockInfo'));
+        return view('admin.pages.purchases.stock',compact('ProductStockInfo','idValue'));
     }
 
     // Purchase Product Info
@@ -35,6 +36,7 @@ class PurchaseController extends Controller
     public function productInfo(Request $request)
     {
         $productId = $request->product_id;
+
         $productIdArray = explode("_",$productId);
         if($productIdArray[0] == 'single'){
             $ProductStockInfo = ProductStock::where('product_id',$productIdArray[1])->first();

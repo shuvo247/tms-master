@@ -317,7 +317,8 @@
         var box = $(this).val();
         var purchasePrice = $('#purchasePrice').val();
         var sft = box*sftInABox;
-        $('#purchaseQtyValue').val(sft);
+        var frontSft = parseFloat(box*sftInABox).toFixed(2);
+        $('#purchaseQtyValue').val(frontSft);
         // Show Price In Price Box
         var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
         $('#purchaseProductTotal').val(purchaseTotal);
@@ -333,8 +334,9 @@
         var SftInAPcs = $('#sftInAPcs').text();
         var PcsToSft = SftInAPcs*purchasePcsValue;
         var boxToSft = purchaseBoxValue*sftInABox;
-        var TotalSft =PcsToSft+boxToSft
-        $('#purchaseQtyValue').val(TotalSft);
+        var TotalSft = PcsToSft+boxToSft;
+        var frontTotalSft = parseFloat(PcsToSft+boxToSft).toFixed(2);
+        $('#purchaseQtyValue').val(frontTotalSft);
         var purchaseTotal = parseFloat(purchasePrice*TotalSft).toFixed(2);
         $('#purchaseProductTotal').val(purchaseTotal);
     });
@@ -350,7 +352,14 @@
         var flotingBox = purchaseBox - Math.floor(purchaseBox); // Seperate Floting Value from Purchase Box
         var flotingBoxToSft = flotingBox*sftInABox; // Conver Floting Box to Sft
         var SftInAPcs = $('#sftInAPcs').text();
-        $('#purchasePcsValue').val(flotingBoxToSft/SftInAPcs); // Convert and show floting box to PCS
+        var frontPurchasePcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
+        var flotingBox = parseFloat(frontPurchasePcsValue - Math.floor(frontPurchasePcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
+        if(flotingBox != 0.00){
+           $('#purchasePcsValue').css('border-color','red');
+        }else{
+            $('#purchasePcsValue').css('border-color',''); 
+        }
+        $('#purchasePcsValue').val(frontPurchasePcsValue); // Convert and show floting box to PCS
         // Show Price In Price Box
         var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
         $('#purchaseProductTotal').val(purchaseTotal);
@@ -480,7 +489,8 @@
         $("#selectNewRowProduct"+j).change(function(){
         var productId = $(this).val();
         $.get("{{route('purchase.product_details')}}",{
-            product_id : productId
+            product_id : productId,
+            id_value : j
             },function(data){
                 $('#Stock'+j).empty().html(data);
             });
@@ -491,16 +501,75 @@
             });
         });
         // Purchase Box Value for Dynamic Row
-        $("#purchaseBoxValue"+j).keyup(function(){
-            var sftInABox = $('#sftInABox').text();
-            var box = $(this).val();
-            var purchasePrice = $('#purchasePrice'+j).val();
-            var purchaseTotal = parseFloat(sftInABox*box*purchasePrice).toFixed(2);
-            $('#purchaseProductTotal'+j).val(purchaseTotal);
-        });
+        // $("#purchaseBoxValue"+j).keyup(function(){
+        //     var sftInABox = $('#sftInABox').text();
+        //     var box = $(this).val();
+        //     var purchasePrice = $('#purchasePrice'+j).val();
+        //     var purchaseTotal = parseFloat(sftInABox*box*purchasePrice).toFixed(2);
+        //     $('#purchaseProductTotal'+j).val(purchaseTotal);
+        // });
     // End Purchase Box Value for Dynamic Row
+ // End Get Product Details
+ $('#purchaseBoxValue'+j).keyup(function(){
+        var sftInABox = $('#sftInABox'+j).text();
+        var box = $(this).val();
+        var purchasePrice = $('#purchasePrice'+j).val();
+        var sft = parseFloat(box*sftInABox).toFixed(2);
+        var frontSft = parseFloat(box*sftInABox).toFixed(2);
+        $('#purchaseQtyValue'+j).val(frontSft);
+        // Show Price In Price Box
+        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
+        $('#purchaseProductTotal'+j).val(purchaseTotal);
 
-
+    });
+    // Pcs Update Calculation
+    $('#purchasePcsValue'+j).keyup(function(){
+        var purchaseQtyValue =$('#purchaseQtyValue'+j).val();
+        var purchaseBoxValue = $('#purchaseBoxValue'+j).val();
+        var purchasePrice = $('#purchasePrice'+j).val();
+        var sftInABox = $('#sftInABox'+j).text();
+        var purchasePcsValue = $(this).val();
+        var SftInAPcs = $('#sftInAPcs'+j).text();
+        var PcsToSft = SftInAPcs*purchasePcsValue;
+        var boxToSft = purchaseBoxValue*sftInABox;
+        var TotalSft =PcsToSft+boxToSft;
+        var frontTotalSft = parseFloat(PcsToSft+boxToSft).toFixed(2);
+        $('#purchaseQtyValue'+j).val(frontTotalSft);
+        var purchaseTotal = parseFloat(purchasePrice*TotalSft).toFixed(2);
+        $('#purchaseProductTotal'+j).val(purchaseTotal);
+    });
+    // Quantity Update Calculation
+    $('#purchaseQtyValue'+j).keyup(function(){
+        // Get Some data for calculate
+        var sftInABox = $('#sftInABox'+j).text();
+        var sft = $(this).val();
+        var purchasePrice = $('#purchasePrice'+j).val();
+        // Calculation Start
+        var purchaseBox = sft/sftInABox; // Purchase Box
+        $('#purchaseBoxValue'+j).val(sft/sftInABox | 0); // Get purchase Box Integer Value
+        var flotingBox = purchaseBox - Math.floor(purchaseBox); // Seperate Floting Value from Purchase Box
+        var flotingBoxToSft = flotingBox*sftInABox; // Conver Floting Box to Sft
+        var SftInAPcs = $('#sftInAPcs'+j).text();
+        var frontPurchasePcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
+        var flotingBox = parseFloat(frontPurchasePcsValue - Math.floor(frontPurchasePcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
+        if(flotingBox != 0.00){
+           $('#purchasePcsValue'+j).css('border-color','red');
+        }else{
+            $('#purchasePcsValue'+j).css('border-color',''); 
+        }
+        $('#purchasePcsValue'+j).val(frontPurchasePcsValue); // Convert and show floting box to PCS
+        // Show Price In Price Box
+        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
+        $('#purchaseProductTotal'+j).val(purchaseTotal);
+    });
+    // Calculate Box Value
+    // Price Update Calculation
+    $('#purchasePrice'+j).keyup(function(){
+        var price = $(this).val();
+        var sft = $('#purchaseQtyValue'+j).val();
+        var purchaseTotal = parseFloat(price*sft).toFixed(2);
+        $('#purchaseProductTotal'+j).val(purchaseTotal);
+    });
        $('.select-2').select2();
    });
 
