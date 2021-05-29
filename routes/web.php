@@ -32,6 +32,18 @@ Route::GROUP(['prefix' => 'account', 'as' => 'account.','middleware' => ['auth']
             'uses'  => 'ExpensesController@store',
             'as'    => 'store'
         ]);
+        Route::GET('/edit',[
+            'uses'  => 'ExpensesController@edit',
+            'as'    => 'edit'
+        ]);
+        Route::GET('/destroy',[
+            'uses'  => 'ExpensesController@destroy',
+            'as'    => 'destroy'
+        ]);
+        Route::POST('/update',[
+            'uses'  => 'ExpensesController@update',
+            'as'    => 'update'
+        ]);
         Route::GROUP(['prefix' => 'category','as' => 'category.'],function(){
             Route::POST('/store',[
                 'uses'  => 'ExpenseCategoryController@store',

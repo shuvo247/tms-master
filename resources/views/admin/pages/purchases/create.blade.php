@@ -90,7 +90,7 @@
                                         <label for="attributeName" class="col-form-label">Box</label>
                                             <div id="inputFormRow">
                                             <div class="input-group mb-3">
-                                                <input type="number" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
+                                                <input type="text" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Pcs</label>
                                             <div class="input-group mb-3">
-                                                <input type="number" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
+                                                <input type="text" id="purchasePcsValue" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Qty(sft)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
+                                                <input type="text" id="purchaseQtyValue" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -310,15 +310,59 @@
             $('#purchasePrice').val(data.purchase_price);
         });
     });
+    // Box Update Calculation
     // End Get Product Details
     $('#purchaseBoxValue').keyup(function(){
         var sftInABox = $('#sftInABox').text();
         var box = $(this).val();
         var purchasePrice = $('#purchasePrice').val();
-        $('#purchaseProductTotal').val(sftInABox*box*purchasePrice);
+        var sft = box*sftInABox;
+        $('#purchaseQtyValue').val(sft);
+        // Show Price In Price Box
+        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
+        $('#purchaseProductTotal').val(purchaseTotal);
+
+    });
+    // Pcs Update Calculation
+    $('#purchasePcsValue').keyup(function(){
+        var purchaseQtyValue =$('#purchaseQtyValue').val();
+        var purchaseBoxValue = $('#purchaseBoxValue').val();
+        var purchasePrice = $('#purchasePrice').val();
+        var sftInABox = $('#sftInABox').text();
+        var purchasePcsValue = $(this).val();
+        var SftInAPcs = $('#sftInAPcs').text();
+        var PcsToSft = SftInAPcs*purchasePcsValue;
+        var boxToSft = purchaseBoxValue*sftInABox;
+        var TotalSft =PcsToSft+boxToSft
+        $('#purchaseQtyValue').val(TotalSft);
+        var purchaseTotal = parseFloat(purchasePrice*TotalSft).toFixed(2);
+        $('#purchaseProductTotal').val(purchaseTotal);
+    });
+    // Quantity Update Calculation
+    $('#purchaseQtyValue').keyup(function(){
+        // Get Some data for calculate
+        var sftInABox = $('#sftInABox').text();
+        var sft = $(this).val();
+        var purchasePrice = $('#purchasePrice').val();
+        // Calculation Start
+        var purchaseBox = sft/sftInABox; // Purchase Box
+        $('#purchaseBoxValue').val(sft/sftInABox | 0); // Get purchase Box Integer Value
+        var flotingBox = purchaseBox - Math.floor(purchaseBox); // Seperate Floting Value from Purchase Box
+        var flotingBoxToSft = flotingBox*sftInABox; // Conver Floting Box to Sft
+        var SftInAPcs = $('#sftInAPcs').text();
+        $('#purchasePcsValue').val(flotingBoxToSft/SftInAPcs); // Convert and show floting box to PCS
+        // Show Price In Price Box
+        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
+        $('#purchaseProductTotal').val(purchaseTotal);
     });
     // Calculate Box Value
-    // End Calculate Box Value
+    // Price Update Calculation
+    $('#purchasePrice').keyup(function(){
+        var price = $(this).val();
+        var sft = $('#purchaseQtyValue').val();
+        var purchaseTotal = parseFloat(price*sft).toFixed(2);
+        $('#purchaseProductTotal').val(purchaseTotal);
+    });
 
     $(document).ready(function() {
         function addCounter() {     //this function set the counter variable value static.
@@ -359,7 +403,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_box[]" class="form-control m-input" placeholder="Box" autocomplete="off">';
+            html += '<input type="text" name="purchase_box[]" id="purchaseBoxValue'+j+'" class="form-control m-input" placeholder="Box" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -368,7 +412,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">';
+            html += '<input type="text"  id="purchasePcsValue'+j+'" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -377,7 +421,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">';
+            html += '<input type="text"  id="purchaseQtyValue'+j+'" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -386,7 +430,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_price[]" id="purchasePrice'+j+'" class="form-control m-input" placeholder="Price" autocomplete="off">';
+            html += '<input type="text"  id="purchasePrice'+j+'" name="purchase_price[]" id="purchasePrice'+j+'" class="form-control m-input" placeholder="Price" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -416,7 +460,7 @@
             html += ' <div class="form-group col-md-2">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="total[]" class="form-control m-input" placeholder="Total" autocomplete="off">';
+            html += '<input type="text" name="total[]" id="purchaseProductTotal'+j+'" class="form-control m-input" placeholder="Total" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -433,21 +477,33 @@
             html += '</div>';
        $('#newRow').append(html);
 
-    $("#selectNewRowProduct"+j).change(function(){
-       var productId = $(this).val();
-       $.get("{{route('purchase.product_details')}}",{
-           product_id : productId
-           },function(data){
-            $('#Stock'+j).empty().html(data);
+        $("#selectNewRowProduct"+j).change(function(){
+        var productId = $(this).val();
+        $.get("{{route('purchase.product_details')}}",{
+            product_id : productId
+            },function(data){
+                $('#Stock'+j).empty().html(data);
+            });
+            $.get("{{route('purchase.product_info')}}",{
+            product_id : productId
+            },function(data){
+                $('#purchasePrice'+j).val(data.purchase_price);
+            });
         });
-        $.get("{{route('purchase.product_info')}}",{
-           product_id : productId
-           },function(data){
-            $('#purchasePrice'+j).val(data.purchase_price);
+        // Purchase Box Value for Dynamic Row
+        $("#purchaseBoxValue"+j).keyup(function(){
+            var sftInABox = $('#sftInABox').text();
+            var box = $(this).val();
+            var purchasePrice = $('#purchasePrice'+j).val();
+            var purchaseTotal = parseFloat(sftInABox*box*purchasePrice).toFixed(2);
+            $('#purchaseProductTotal'+j).val(purchaseTotal);
         });
-    });
+    // End Purchase Box Value for Dynamic Row
+
+
        $('.select-2').select2();
    });
+
 
 
    // remove row

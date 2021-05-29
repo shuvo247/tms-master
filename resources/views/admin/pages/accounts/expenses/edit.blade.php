@@ -58,24 +58,24 @@
                 <div class="repeater-default m-t-30">
                     <div data-repeater-list="">
                         <div data-repeater-item="">
-                            <form action="{{ route('account.expenses.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('account.expenses.update',['expense_id' =>$expense->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label for="expenseDate">Select Date <span class="text-danger">*</span></label>
-                                        <input id="expenseDate" name="expense_date" class="form-control" data-provide="datepicker" data-date-format="dd-mm-yyyy" data-date-autoclose="true" required="">
+                                        <input id="expenseDate" name="expense_date" value="{{ $expense->expense_date ?? ''}}" class="form-control" data-provide="datepicker" data-date-format="dd-mm-yyyy" data-date-autoclose="true">
                                     </div>
                                     <div class="form-group col-md-4">                                        
                                     <label for="expenseCategoryName">Select Category <span class="text-danger">*</span></label>
                                         <select class="form-control select-2" id="expenseCategoryName" name="expense_category_id">
                                             @foreach (App\Models\ExpenseCategory::orderByDesc('id')->get() as $expense_category)
-                                                <option value="{{$expense_category->id}}">{{$expense_category->expense_category_name}}</option>
+                                                <option value="{{$expense_category->id}}" @if($expense->expense_category_id == $expense_category->id) selected @endif>{{$expense_category->expense_category_name}}</option>
                                             @endforeach
                                           </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="owner_name">Amount <span class="text-danger">*</span></label>
-                                        <input name="amount" type="text" class="form-control" id="amount" placeholder="Ex : 10000000">
+                                        <input name="amount" type="text" class="form-control" value="{{ $expense->expense_amount ?? '' }}" id="amount" placeholder="Ex : 10000000">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -83,17 +83,17 @@
                                     <label for="paymentMethod">Payment Method </label>
                                         <select class="form-control select-2" id="paymentMethod" name="payment_method_id">
                                             @foreach (App\Models\PaymentMethod::orderByDesc('id')->get() as $payment_method)
-                                                <option value="{{$payment_method->id}}">{{$payment_method->method_name}}</option>
+                                                <option value="{{$payment_method->id}}" @if($expense->payment_method_id == $payment_method->id) selected @endif>{{$payment_method->method_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="accountInfo">Account Info </label>
-                                        <textarea name="account_information" class="form-control" id="accountInfo" rows="1" placeholder="Account Information...."></textarea>
+                                        <textarea name="account_information" class="form-control" id="accountInfo" rows="1" placeholder="Account Information....">{{ $expense->account_information ?? ''}}</textarea>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="image">Note</label>
-                                        <textarea name="note" class="form-control" id="note" rows="1" placeholder="Note...."></textarea>
+                                        <textarea name="note" class="form-control" id="note" rows="1" value="{{ $expense->note }}"></textarea>
                                     </div>
                                 </div>
                             <hr>
@@ -141,8 +141,7 @@
                                     <td>{{$expense->account_information ?? ''}}</td>
                                     <td>{{$expense->note ?? ''}}</td>
                                     <td>
-                                        <a href="{{route('account.expenses.edit',['expense_id' => $expense->id])}}"><i class="font-18 far fa-edit text-success"></i></a>
-
+                                        <a href="{{ route('account.expenses.edit',['expense_id' => $expense->id])}}"><i class="font-18 far fa-edit text-info"></i></a>
                                         <a href="{{route('account.expenses.destroy',['expense_id' => $expense->id])}}"><i class="font-18 far fa-trash-alt text-danger"></i></a>
                                     </td>
                                 </tr>

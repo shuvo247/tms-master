@@ -173,10 +173,17 @@ class ProductController extends Controller
                 $count = count($request->variable_product_id);
                 for ($i=0; $i < $count; $i++) { 
                     $variable_product_stock = VariableProductStock::findOrFail($request->variable_product_id[$i]);
+                    $variable_product_stock->product_id = $product->id;
                     $variable_product_stock->size_attribute_id = $request->size_attribute_id[$i];
                     $variable_product_stock->grade_attribute_id = $request->grade_attribute_id[$i];
                     $variable_product_stock->purchase_price = $request->variant_purchase_price[$i];
+                    $variable_product_stock->sft_in_a_box = (Helper::SftInAPcs($request->size_attribute_id[$i])/144)*$request->pcs_per_box;
+                    $variable_product_stock->sft_in_a_pcs = (Helper::SftInAPcs($request->size_attribute_id[$i])/144);
                     $variable_product_stock->selling_price = $request->variant_sell_price[$i];
+                    // Total Available PCS
+                    $total_available_pcs = $request->quantity[$i]/(Helper::SftInAPcs($request->size_attribute_id[$i])/144);
+                    $variable_product_stock->total_available_pcs = $total_available_pcs;
+                    $variable_product_stock->total_available_box = $total_available_pcs/$request->pcs_per_box;
                     $variable_product_stock->qty_in_sft = $request->quantity[$i];
                     $variable_product_stock->update();
                   }
@@ -187,10 +194,22 @@ class ProductController extends Controller
                         for ($i=0; $i < $count; $i++) { 
                             $variable_product_stock = new VariableProductStock();
                             $variable_product_stock->product_id = $product->id;
+                            // $variable_product_stock->size_attribute_id = $request->new_size_attribute_id[$i];
+                            // $variable_product_stock->grade_attribute_id = $request->new_grade_attribute_id[$i];
+                            // $variable_product_stock->purchase_price = $request->new_variant_purchase_price[$i];
+                            // $variable_product_stock->selling_price = $request->new_variant_sell_price[$i];
+                            // $variable_product_stock->qty_in_sft = $request->new_quantity[$i];
+                            $variable_product_stock->product_id = $product->id;
                             $variable_product_stock->size_attribute_id = $request->new_size_attribute_id[$i];
                             $variable_product_stock->grade_attribute_id = $request->new_grade_attribute_id[$i];
                             $variable_product_stock->purchase_price = $request->new_variant_purchase_price[$i];
+                            $variable_product_stock->sft_in_a_box = (Helper::SftInAPcs($request->new_size_attribute_id[$i])/144)*$request->pcs_per_box;
+                            $variable_product_stock->sft_in_a_pcs = (Helper::SftInAPcs($request->new_size_attribute_id[$i])/144);
                             $variable_product_stock->selling_price = $request->new_variant_sell_price[$i];
+                            // Total Available PCS
+                            $total_available_pcs = $request->new_quantity[$i]/(Helper::SftInAPcs($request->new_size_attribute_id[$i])/144);
+                            $variable_product_stock->total_available_pcs = $total_available_pcs;
+                            $variable_product_stock->total_available_box = $total_available_pcs/$request->pcs_per_box;
                             $variable_product_stock->qty_in_sft = $request->new_quantity[$i];
                             $variable_product_stock->save();
                         }
