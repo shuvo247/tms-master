@@ -73,6 +73,14 @@ Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']
         'uses'      => 'PurchaseController@create',
         'as'        => 'create'
     ]);
+    Route::GET('/list',[
+        'uses'     => 'PurchaseController@index',
+        'as'       => 'list'
+    ]);
+    Route::GET('/edit',[
+        'uses'     => 'PurchaseController@edit',
+        'as'       => 'edit'
+    ]);
     Route::POST('/store',[
         'uses'      => 'PurchaseController@store',
         'as'        => 'store'

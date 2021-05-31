@@ -15,6 +15,9 @@
                                 <li class="sidebar-item"><a href="{{route('purchase.create')}}" class="sidebar-link"><i
                                    class="mdi mdi-minus"></i><span class="hide-menu"> Add Purchase </span></a>
                                 </li>
+                                <li class="sidebar-item"><a href="{{route('purchase.list')}}" class="sidebar-link"><i
+                                   class="mdi mdi-minus"></i><span class="hide-menu"> List Purchase </span></a>
+                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
