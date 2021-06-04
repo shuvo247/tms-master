@@ -21,4 +21,8 @@ class PurchaseInvoice extends Model
     {
         return $this->hasMany('App\Models\Purchase','purchase_invoice_id')->skip(1)->take(PHP_INT_MAX);
     }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product','product_id');
+    }
 }

@@ -81,8 +81,15 @@
                                                         <option  value="single_{{$product->id}}" @if($purchase->product_type == 0 && $purchase->product_id == $stock->id)selected @endif>{{$product->product_name}} | {{$product->category->category_name}} | {{$product->brand->brand_name}} </option>
                                                     @endforeach
                                                 </select>
+                                                @php 
+                                                    if($purchase->product_type == 1){
+                                                        $ProductStockInfo = DB::table('variable_product_stocks')->where('id',$purchase->product_id)->first();
+                                                    }else{
+                                                        $ProductStockInfo = DB::table('product_stocks')->where('id',$purchase->product_id)->first();
+                                                    }
+                                                @endphp
                                                 <div id="Stock">
-                                                    @include('admin.pages.purchases.stock')
+                                                   Stock : <span> @if(isset($ProductStockInfo->qty_in_sft)) {{$ProductStockInfo->qty_in_sft . ' SFT' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_box)) {{$ProductStockInfo->total_available_box . ' BOX' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_pcs)) {{$ProductStockInfo->total_available_pcs . ' PCS' }} @endif</span> <span id="sftInABox{{ $idValue ?? ''}}" style="display:none;">@if(isset($ProductStockInfo->sft_in_a_box)) {{$ProductStockInfo->sft_in_a_box }} @endif</span><span id="sftInAPcs{{ $idValue ?? ''}}" style="display:none;">@if(isset($ProductStockInfo->sft_in_a_pcs)) {{$ProductStockInfo->sft_in_a_pcs }} @endif</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +97,7 @@
                                             <label for="attributeName" class="col-form-label">Box</label>
                                                 <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
+                                                    <input type="text" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" value="{{ $purchase->purchase_box ?? '' }}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -98,7 +105,7 @@
                                             <div id="inputFormRow">
                                             <label for="attributeName" class="col-form-label">Pcs</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchasePcsValue" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
+                                                    <input type="text"  id="purchasePcsValue" name="purchase_pcs[]" class="form-control m-input" value="{{ $purchase->purchase_pcs ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -106,7 +113,7 @@
                                             <div id="inputFormRow">
                                             <label for="attributeName" class="col-form-label">Qty(sft)</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchaseQtyValue" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
+                                                    <input type="text" id="purchaseQtyValue" name="purchase_quantity[]" class="form-control m-input" value="{{ $purchase->purchase_qty_in_sft ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +121,7 @@
                                             <div id="inputFormRow">
                                             <label for="attributeName" class="col-form-label">Price</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="purchase_price[]" id="purchasePrice" class="form-control m-input" placeholder="Price" autocomplete="off">
+                                                    <input type="text" name="purchase_price[]" id="purchasePrice" class="form-control m-input" value="{{ $purchase->purchase_rate ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +148,7 @@
                                             <div id="inputFormRow">
                                             <label for="attributeName" class="col-form-label">Total</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchaseProductTotal" name="total[]" class="form-control m-input total" placeholder="Total" autocomplete="off">
+                                                    <input type="text" id="purchaseProductTotal" name="total[]" class="form-control m-input total" value="{{ $purchase->total ?? ''}} " autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -168,36 +175,43 @@
                                                         <option  value="single_{{$product->id}}" @if($purchase->product_type == 0 && $purchase->product_id == $stock->id)selected @endif>{{$product->product_name}} | {{$product->category->category_name}} | {{$product->brand->brand_name}} </option>
                                                     @endforeach
                                                 </select>
+                                                @php 
+                                                    if($purchase->product_type == 1){
+                                                        $ProductStockInfo = DB::table('variable_product_stocks')->where('id',$purchase->product_id)->first();
+                                                    }else{
+                                                        $ProductStockInfo = DB::table('product_stocks')->where('id',$purchase->product_id)->first();
+                                                    }
+                                                @endphp
                                                 <div id="Stock{{$loop->index+1}}">
-                                                    @include('admin.pages.purchases.stock')
+                                                   Stock : <span> @if(isset($ProductStockInfo->qty_in_sft)) {{$ProductStockInfo->qty_in_sft . ' SFT' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_box)) {{$ProductStockInfo->total_available_box . ' BOX' }} @endif</span> <span>@if(isset($ProductStockInfo->total_available_pcs)) {{$ProductStockInfo->total_available_pcs . ' PCS' }} @endif</span> <span id="sftInABox{{$loop->index+1}}" style="display:none;">@if(isset($ProductStockInfo->sft_in_a_box)) {{$ProductStockInfo->sft_in_a_box }} @endif</span><span id="sftInAPcs{{$loop->index+1}}" style="display:none;">@if(isset($ProductStockInfo->sft_in_a_pcs)) {{$ProductStockInfo->sft_in_a_pcs }} @endif</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                                 <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="purchase_box[]" id="purchaseBoxValue{{$loop->index+1}}" class="form-control m-input" placeholder="Box" autocomplete="off">
+                                                    <input type="text" name="purchase_box[]" id="purchaseBoxValue{{$loop->index+1}}" class="form-control m-input" value="{{ $purchase->purchase_box ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchasePcsValue{{$loop->index+1}}" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
+                                                    <input type="text" id="purchasePcsValue{{$loop->index+1}}" name="purchase_pcs[]" class="form-control m-input" value="{{$purchase->purchase_pcs ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchaseQtyValue{{$loop->index+1}}" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
+                                                    <input type="text" id="purchaseQtyValue{{$loop->index+1}}" name="purchase_quantity[]" class="form-control m-input" value="{{ $purchase->purchase_qty_in_sft ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="purchase_price[]" id="purchasePrice{{$loop->index+1}}" class="form-control m-input" placeholder="Price" autocomplete="off">
+                                                    <input type="text" name="purchase_price[]" id="purchasePrice{{$loop->index+1}}" class="form-control m-input" value="{{ $purchase->purchase_rate ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +235,7 @@
                                         <div class="col-md-2">
                                             <div id="inputFormRow">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="purchaseProductTotal{{$loop->index+1}}" name="total[]" class="form-control m-input total" placeholder="Total" autocomplete="off">
+                                                    <input type="text" id="purchaseProductTotal{{$loop->index+1}}" name="total[]" class="form-control m-input total" placeholder="{{ $purchase->total ?? ''}}" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -404,7 +418,9 @@
         // Update Total Purchase Price
         $('#purchaseProductTotal').val(purchaseTotal);
         if(parcentType == 'parcent'){
-            alert('Parcent')
+            var discountPrice = ((discountValue*purchaseTotal)/100);
+            var calculateDiscountValue = parseFloat(purchaseTotal-discountPrice).toFixed(2);
+            $('#purchaseProductTotal').val(calculateDiscountValue);
         }else{
             var calculateDiscountValue = parseFloat(purchaseTotal-discountValue).toFixed(2);
             $('#purchaseProductTotal').val(calculateDiscountValue);
@@ -493,7 +509,7 @@
         var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
         $('#purchaseProductTotal').val(purchaseTotal);
         // Calculate Sub Total Value
-                var total = 0;
+        var total = 0;
         $('.total').each(function(){
             total += parseFloat(this.value);
         });
@@ -521,8 +537,6 @@
     });
     $(document).ready(function() {
         // Add Counter for Dynamic Row Product
-
-
         function addCounter() {     //this function set the counter variable value static.
         var cust_count = '{{count($purchase_invoice->purchase)}}';
             return function() {
@@ -561,7 +575,6 @@
   $('#purchaseDiscountValue').keyup(function(){
         var parcentType = $('#discountType').val();
         var discountValue = $(this).val();
-
         // Get Old Purchase Price
         var price = $('#purchasePrice').val();
         var sft = $('#purchaseQtyValue').val();
@@ -570,7 +583,9 @@
         // Update Total Purchase Price
         $('#purchaseProductTotal').val(purchaseTotal);
         if(parcentType == 'parcent'){
-            alert('Parcent')
+            var discountPrice = ((discountValue*purchaseTotal)/100);
+            var calculateDiscountValue = parseFloat(purchaseTotal-discountPrice).toFixed(2);
+            $('#purchaseProductTotal').val(calculateDiscountValue);
         }else{
             var calculateDiscountValue = parseFloat(purchaseTotal-discountValue).toFixed(2);
             $('#purchaseProductTotal').val(calculateDiscountValue);
@@ -683,8 +698,6 @@ $('#purchasePcsValue'+j).keyup(function(){
         $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
     });
-
-
     // End Purchase Dynamic Row Product
         $("#addRow").click(function () { 
             var j = countVar(); 
@@ -827,7 +840,9 @@ $('#purchasePcsValue'+j).keyup(function(){
         // Update Total Purchase Price
         $('#purchaseProductTotal').val(purchaseTotal);
         if(parcentType == 'parcent'){
-            alert('Parcent')
+            var discountPrice = ((discountValue*purchaseTotal)/100);
+            var calculateDiscountValue = parseFloat(purchaseTotal-discountPrice).toFixed(2);
+            $('#purchaseProductTotal').val(calculateDiscountValue);
         }else{
             var calculateDiscountValue = parseFloat(purchaseTotal-discountValue).toFixed(2);
             $('#purchaseProductTotal').val(calculateDiscountValue);

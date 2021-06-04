@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-12">
         @include('admin.partials.flash')
-        <form action="{{route('purchase.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card">
                 <div class="card-body">
@@ -49,7 +49,7 @@
                             <div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" for="productname" class="col-md-4 col-form-label">Note </label>
                                 <div class="col-md-8">
-                                    <input id="purchase_note" name="purchase_note" type="text" placeholder="Purchase note" class="form-control">
+                                    <input id="sales_note" name="sales_note" type="text" placeholder="Sales note" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             <div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" for="productname" class="col-md-4 col-form-label">Date * </label>
                                 <div class="col-md-8">
-                                    <input id="purchase_date" name="purchase_date" type="text" class="form-control" data-date-autoclose="true" >
+                                    <input id="sales_date" name="sales_date" type="text" class="form-control" data-date-autoclose="true" >
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                         <label for="attributeName" class="col-form-label">Box</label>
                                             <div id="inputFormRow">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_box[]" id="purchaseBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
+                                                <input type="text" name="sales_box[]" id="salesBoxValue" class="form-control m-input" placeholder="Box" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Pcs</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" id="purchasePcsValue" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
+                                                <input type="text" id="salesPcsValue" name="sales_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Qty(sft)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" id="purchaseQtyValue" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
+                                                <input type="text" id="salesQtyValue" name="sales_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Price</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="purchase_price[]" id="purchasePrice" class="form-control m-input" placeholder="Price" autocomplete="off">
+                                                <input type="text" name="sales_price[]" id="salesPrice" class="form-control m-input" placeholder="Price" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -122,8 +122,8 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Dis. Type</label>
                                             <div class="input-group mb-3">
-                                                <select name="discount_type[]" id="discountType" class="form-control">
-                                                    <option value="parcent" selected>%</option>
+                                                <select name="" id="discountType" class="form-control">
+                                                    <option value="parcent">%</option>
                                                     <option value="bdt">BDT</option>
                                                 </select>
                                             </div>
@@ -133,7 +133,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Discount</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" id="purchaseDiscountValue" name="discount[]" class="form-control m-input" placeholder="Discount" autocomplete="off">
+                                                <input type="text" id="salesDiscountValue" name="discount[]" class="form-control m-input" placeholder="Discount" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Total</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" id="purchaseProductTotal" name="total[]" class="form-control m-input total" placeholder="Total" autocomplete="off">
+                                                <input type="text" id="salesProductTotal" name="total[]" class="form-control m-input total" placeholder="Total" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                     <div class="form-group col-md-3">
                                     <label for="attributeName" class="col-form-label">Paid</label>
                                         <div id="inputFormRow">
-                                            <input type="number" id="paidAmountValue" name="purchase_paid[]" class="form-control">
+                                            <input type="number" name="sales_paid[]" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -192,18 +192,18 @@
                                         <div id="inputFormRow">
                                         <label for="attributeName" class="col-form-label">Note</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="payment_note[]" class="form-control m-input" placeholder="Note" autocomplete="off">
+                                                <input type="text" name="sales_note[]" class="form-control m-input" placeholder="Note" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <label for="attributeName" class="col-form-label">Add Row</label>
                                         <div class="ml-auto">
-                                            <button id="addPaymentRow" type="button" class="btn btn-info">Add Row</button>
+                                            <button id="addSalesRow" type="button" class="btn btn-info">Add Row</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="newPaymentRow" class="row">
+                                <div id="newSalesRow" class="row">
                                     
                                 </div>
                             </div>
@@ -221,14 +221,13 @@
                             <div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" class="col-md-5 col-form-label">VAT</label>
                                 <div style="padding-right: 0px" class="col-md-3">
-                                    <select style="border-radius: 4px;cursor: pointer" id="vatType" class="form-control" name="vat_type">
-                                        <option style="padding: 10px" value="0" selected>%</option>
+                                    <select style="border-radius: 4px;cursor: pointer" class="form-control" name="vat_type">
+                                        <option style="padding: 10px" value="0" selected="">%</option>
                                         <option style="padding: 10px" value="1">BDT</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="hidden" value="0.00" id="hidden_vat_amount">
-                                    <input id="purchase_vat_amount" type="text" class="form-control width-xs" name="purchase_vat_amount">
+                                    <input id="sales_vat_amount" type="text" class="form-control width-xs" name="sales_vat_amount" value="">
                                 </div>
                             </div><div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" class="col-md-5 col-form-label">Discount</label>
@@ -240,7 +239,7 @@
                                 </div>
 
                                 <div style="padding-left: 0px" class="col-md-4">
-                                    <input id="purchase_total_discount" type="text" class="form-control totalDiscount" name="purchase_total_discount">
+                                    <input id="sales_total_discount" type="text" class="form-control totalDiscount" name="sales_total_discount">
                                 </div>
                             </div>
                             <div style="margin-bottom: 5px" class="form-group row">
@@ -249,6 +248,13 @@
                                     <input id="discount_note" type="text" class="form-control width-xs" name="discount_note" placeholder="Discount Note">
                                 </div>
                             </div>
+                            <!-- <div style="margin-bottom: 5px" class="form-group row">
+                                <label style="text-align: right" class="col-md-5 col-form-label">Coupon</label>
+                                <div class="col-md-7">
+                                    <input id="coupon_code" type="number" class="form-control width-xs couponCode" name="coupon_code" onchange="couponMembership()" placeholder="Coupon/Membership">
+                                </div>
+                            </div> -->
+                            <!-- Invoice Column One -->
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -294,58 +300,35 @@
     $('#selectedProduct').change(function(){
     // Get Product Details
        var productId = $(this).val();
-       $.get("{{route('purchase.product_details')}}",{
+       $.get("{{route('sales.product_details')}}",{
            product_id : productId
            },function(data){
             $('#Stock').empty().html(data);
         });
-        $.get("{{route('purchase.product_info')}}",{
+        $.get("{{route('sales.product_info')}}",{
            product_id : productId
            },function(data){
-            $('#purchasePrice').val(data.purchase_price);
+            $('#salesPrice').val(data.purchase_price);
         });
     });
-    // Calculate Vat Amount
-    $('#purchase_vat_amount').keyup(function(){
-        var vatType = $('#vatType').val();
-        var vatValue = $(this).val();
-        // Get Old Purchase Price
-        // var price = $('#purchasePrice').val();
-        // var sft = $('#purchaseQtyValue').val();
-        var subTotal = $('#subTotalBdt').val();
-        // End Get Old Purchase Price
-        // Update Total Purchase Price
-        $('#totalPayable').val(subTotal);
-        if(vatType == '0'){
-            var vatPrice = ((vatValue*subTotal)/100);
-            $('#hidden_vat_amount').val(vatPrice);
-            var calculateVatPrice = (parseFloat(subTotal) + parseFloat(vatPrice)).toFixed(2);
-            $('#totalPayable').val(calculateVatPrice);
-        }else{
-            var calculateVatPrice = (parseFloat(subTotal) + parseFloat(vatValue)).toFixed(2);
-            $('#totalPayable').val(calculateVatPrice);
-        }
-    });
-
-    // End Calculate Vat Amount
     // Purchase Discount Start
-    $('#purchaseDiscountValue').keyup(function(){
+    $('#salesDiscountValue').keyup(function(){
         var parcentType = $('#discountType').val();
         var discountValue = $(this).val();
 
         // Get Old Purchase Price
-        var price = $('#purchasePrice').val();
-        var sft = $('#purchaseQtyValue').val();
-        var purchaseTotal = parseFloat(price*sft).toFixed(2);
-        // End Get Old Purchase Price
-        // Update Total Purchase Price
-        $('#purchaseProductTotal').val(purchaseTotal);
+        var price = $('#salesPrice').val();
+        var sft = $('#salesQtyValue').val();
+        var salesTotal = parseFloat(price*sft).toFixed(2);
+        // End Get Old sales Price
+        // Update Total sales Price
+        $('#salesProductTotal').val(salesTotal);
         if(parcentType == 'parcent'){
-            var discountPrice = ((discountValue*purchaseTotal)/100);
-            var calculateDiscountValue = parseFloat(purchaseTotal-discountPrice).toFixed(2);
+            var discountPrice = ((discountValue*salesTotal)/100);
+            var calculateDiscountValue = parseFloat(salesTotal-discountPrice).toFixed(2);
             $('#purchaseProductTotal').val(calculateDiscountValue);
         }else{
-            var calculateDiscountValue = parseFloat(purchaseTotal-discountValue).toFixed(2);
+            var calculateDiscountValue = parseFloat(salesTotal-discountValue).toFixed(2);
             $('#purchaseProductTotal').val(calculateDiscountValue);
         }
         // End Update Total Purchase Price
@@ -356,30 +339,23 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
     });
     // Purchase Discount End
 
     // Box Update Calculation
     // End Get Product Details
-    $('#purchaseBoxValue').keyup(function(){
+    $('#salesBoxValue').keyup(function(){
         var sftInABox = $('#sftInABox').text();
         var box = $(this).val();
-        var purchasePrice = $('#purchasePrice').val();
+        var salesPrice = $('#salesPrice').val();
         var sft = box*sftInABox;
         var frontSft = parseFloat(box*sftInABox).toFixed(2);
-        $('#purchaseQtyValue').val(frontSft);
+        $('#salesQtyValue').val(frontSft);
         // Show Price In Price Box
-        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
-        $('#purchaseProductTotal').val(purchaseTotal);
+        var salesTotal = parseFloat(salesPrice*sft).toFixed(2);
+        $('#salesProductTotal').val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -387,31 +363,24 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
     });
     // Pcs Update Calculation
-    $('#purchasePcsValue').keyup(function(){
-        var purchaseQtyValue =$('#purchaseQtyValue').val();
-        var purchaseBoxValue = $('#purchaseBoxValue').val();
-        var purchasePrice = $('#purchasePrice').val();
+    $('#salesPcsValue').keyup(function(){
+        var salesQtyValue =$('#salesQtyValue').val();
+        var salesBoxValue = $('#salesBoxValue').val();
+        var salesPrice = $('#salesPrice').val();
         var sftInABox = $('#sftInABox').text();
-        var purchasePcsValue = $(this).val();
+        var salesPcsValue = $(this).val();
         var SftInAPcs = $('#sftInAPcs').text();
-        var PcsToSft = SftInAPcs*purchasePcsValue;
-        var boxToSft = purchaseBoxValue*sftInABox;
+        var PcsToSft = SftInAPcs*salesPcsValue;
+        var boxToSft = salesBoxValue*sftInABox;
         var TotalSft = PcsToSft+boxToSft;
         var frontTotalSft = parseFloat(PcsToSft+boxToSft).toFixed(2);
-        $('#purchaseQtyValue').val(frontTotalSft);
-        var purchaseTotal = parseFloat(purchasePrice*TotalSft).toFixed(2);
-        $('#purchaseProductTotal').val(purchaseTotal);
+        $('#salesQtyValue').val(frontTotalSft);
+        var salesTotal = parseFloat(salesPrice*TotalSft).toFixed(2);
+        $('#salesProductTotal').val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -419,39 +388,32 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
     });
     // Quantity Update Calculation
-    $('#purchaseQtyValue').keyup(function(){
+    $('#salesQtyValue').keyup(function(){
         // Get Some data for calculate
         var sftInABox = $('#sftInABox').text();
         var sft = $(this).val();
-        var purchasePrice = $('#purchasePrice').val();
+        var salesPrice = $('#salesPrice').val();
         // Calculation Start
-        var purchaseBox = sft/sftInABox; // Purchase Box
-        $('#purchaseBoxValue').val(sft/sftInABox | 0); // Get purchase Box Integer Value
-        var flotingBox = purchaseBox - Math.floor(purchaseBox); // Seperate Floting Value from Purchase Box
+        var salesBox = sft/sftInABox; // Purchase Box
+        $('#salesBoxValue').val(sft/sftInABox | 0); // Get purchase Box Integer Value
+        var flotingBox = salesBox - Math.floor(salesBox); // Seperate Floting Value from Purchase Box
         var flotingBoxToSft = flotingBox*sftInABox; // Conver Floting Box to Sft
         var SftInAPcs = $('#sftInAPcs').text();
-        var frontPurchasePcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
-        var flotingBox = parseFloat(frontPurchasePcsValue - Math.floor(frontPurchasePcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
+        var frontSalesPcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
+        var flotingBox = parseFloat(frontSalesPcsValue - Math.floor(frontSalesPcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
         if(flotingBox != 0.00){
-           $('#purchasePcsValue').css('border-color','red');
+           $('#salesPcsValue').css('border-color','red');
         }else{
-            $('#purchasePcsValue').css('border-color',''); 
+            $('#salesPcsValue').css('border-color',''); 
         }
-        $('#purchasePcsValue').val(frontPurchasePcsValue); // Convert and show floting box to PCS
+        $('#salesPcsValue').val(frontSalesPcsValue); // Convert and show floting box to PCS
         // Show Price In Price Box
-        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
-        $('#purchaseProductTotal').val(purchaseTotal);
+        var salesTotal = parseFloat(salesPrice*sft).toFixed(2);
+        $('#salesProductTotal').val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -459,23 +421,16 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
     });
     // Calculate Box Value
     // Price Update Calculation
-    $('#purchasePrice').keyup(function(){
+    $('#salesPrice').keyup(function(){
         var price = $(this).val();
-        var sft = $('#purchaseQtyValue').val();
-        var purchaseTotal = parseFloat(price*sft).toFixed(2);
-        $('#purchaseProductTotal').val(purchaseTotal);
+        var sft = $('#salesQtyValue').val();
+        var salesTotal = parseFloat(price*sft).toFixed(2);
+        $('#salesProductTotal').val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -483,17 +438,8 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
+        $('#totalPayable').val(sum);
         // End Calculate Sub Total Value
-        // Calculate Total Price
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
-        // End Calculate Total Price
     });
     $(document).ready(function() {
         function addCounter() {     //this function set the counter variable value static.
@@ -534,7 +480,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="purchase_box[]" id="purchaseBoxValue'+j+'" class="form-control m-input" placeholder="Box" autocomplete="off">';
+            html += '<input type="text" name="sales_box[]" id="salesBoxValue'+j+'" class="form-control m-input" placeholder="Box" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -543,7 +489,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text"  id="purchasePcsValue'+j+'" name="purchase_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">';
+            html += '<input type="text"  id="salesPcsValue'+j+'" name="sales_pcs[]" class="form-control m-input" placeholder="Pcs" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -552,7 +498,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text"  id="purchaseQtyValue'+j+'" name="purchase_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">';
+            html += '<input type="text"  id="salesQtyValue'+j+'" name="sales_quantity[]" class="form-control m-input" placeholder="Quantity" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -561,7 +507,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text"  id="purchasePrice'+j+'" name="purchase_price[]" id="purchasePrice'+j+'" class="form-control m-input" placeholder="Price" autocomplete="off">';
+            html += '<input type="text"  id="salesPrice'+j+'" name="sales_price[]" id="salesPrice'+j+'" class="form-control m-input" placeholder="Price" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -570,8 +516,8 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<select name="discount_type" id="discountType'+j+'" class="form-control">';
-            html += '<option value="parcent" selected>%</option>';
+            html += '<select name="" id="" class="form-control">';
+            html += '<option value="percent">%</option>';
             html += '<option value="bdt">BDT</option>';
             html += '</select>'
             html += '<div class="input-group-append">';
@@ -582,7 +528,7 @@
             html += ' <div class="form-group col-md-1">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" id="purchaseDiscountValue'+j+'" name="discount[]" class="form-control m-input" placeholder="Discount" autocomplete="off">';
+            html += '<input type="text" id="salesDiscountValue'+j+'" name="discount[]" class="form-control m-input" placeholder="Discount" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -591,7 +537,7 @@
             html += ' <div class="form-group col-md-2">';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group">';
-            html += '<input type="text" name="total[]" id="purchaseProductTotal'+j+'" class="form-control m-input total" placeholder="Total" autocomplete="off">';
+            html += '<input type="text" name="total[]" id="salesProductTotal'+j+'" class="form-control m-input total" placeholder="Total" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '</div>';
             html += '</div>';
@@ -610,16 +556,16 @@
 
         $("#selectNewRowProduct"+j).change(function(){
         var productId = $(this).val();
-        $.get("{{route('purchase.product_details')}}",{
+        $.get("{{route('sales.product_details')}}",{
             product_id : productId,
             id_value : j
             },function(data){
                 $('#Stock'+j).empty().html(data);
             });
-            $.get("{{route('purchase.product_info')}}",{
+            $.get("{{route('sales.product_info')}}",{
             product_id : productId
             },function(data){
-                $('#purchasePrice'+j).val(data.purchase_price);
+                $('#salesPrice'+j).val(data.purchase_price);
             });
         });
         // Purchase Box Value for Dynamic Row
@@ -634,23 +580,24 @@
     // End Get Product Details
 
      // Purchase Discount Start
-     $('#purchaseDiscountValue'+j).keyup(function(){
-        var parcentType = $('#discountType'+j).val();
+     $('#salesDiscountValue').keyup(function(){
+        var parcentType = $('#discountType').val();
         var discountValue = $(this).val();
+
         // Get Old Purchase Price
-        var price = $('#purchasePrice'+j).val();
-        var sft = $('#purchaseQtyValue'+j).val();
-        var purchaseTotal = parseFloat(price*sft).toFixed(2);
+        var price = $('#salesPrice').val();
+        var sft = $('#salesQtyValue').val();
+        var salesTotal = parseFloat(price*sft).toFixed(2);
         // End Get Old Purchase Price
         // Update Total Purchase Price
-        $('#purchaseProductTotal'+j).val(purchaseTotal);
+        $('#salesProductTotal').val(salesTotal);
         if(parcentType == 'parcent'){
-            var discountPrice = ((discountValue*purchaseTotal)/100);
-            var calculateDiscountValue = parseFloat(purchaseTotal-discountPrice).toFixed(2);
-            $('#purchaseProductTotal'+j).val(calculateDiscountValue);
+            var discountPrice = ((discountValue*salesTotal)/100);
+            var calculateDiscountValue = parseFloat(salesTotal-discountPrice).toFixed(2);
+            $('#purchaseProductTotal').val(calculateDiscountValue);
         }else{
-            var calculateDiscountValue = parseFloat(purchaseTotal-discountValue).toFixed(2);
-            $('#purchaseProductTotal'+j).val(calculateDiscountValue);
+            var calculateDiscountValue = parseFloat(salesTotal-discountValue).toFixed(2);
+            $('#salesProductTotal').val(calculateDiscountValue);
         }
         // End Update Total Purchase Price
         // Calculate Sub Total Value
@@ -664,16 +611,16 @@
         // End Calculate Sub Total Value
     });
     
-    $('#purchaseBoxValue'+j).keyup(function(){
+    $('#salesBoxValue'+j).keyup(function(){
         var sftInABox = $('#sftInABox'+j).text();
         var box = $(this).val();
-        var purchasePrice = $('#purchasePrice'+j).val();
+        var salesPrice = $('#salesPrice'+j).val();
         var sft = parseFloat(box*sftInABox).toFixed(2);
         var frontSft = parseFloat(box*sftInABox).toFixed(2);
-        $('#purchaseQtyValue'+j).val(frontSft);
+        $('#salesQtyValue'+j).val(frontSft);
         // Show Price In Price Box
-        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
-        $('#purchaseProductTotal'+j).val(purchaseTotal);
+        var salesTotal = parseFloat(salesPrice*sft).toFixed(2);
+        $('#salesProductTotal'+j).val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -685,20 +632,20 @@
         // End Calculate Sub Total Value
     });
     // Pcs Update Calculation
-    $('#purchasePcsValue'+j).keyup(function(){
-        var purchaseQtyValue =$('#purchaseQtyValue'+j).val();
-        var purchaseBoxValue = $('#purchaseBoxValue'+j).val();
-        var purchasePrice = $('#purchasePrice'+j).val();
+    $('#salesPcsValue'+j).keyup(function(){
+        var salesQtyValue =$('#salesQtyValue'+j).val();
+        var salesBoxValue = $('#salesBoxValue'+j).val();
+        var salesPrice = $('#salesPrice'+j).val();
         var sftInABox = $('#sftInABox'+j).text();
-        var purchasePcsValue = $(this).val();
+        var salesPcsValue = $(this).val();
         var SftInAPcs = $('#sftInAPcs'+j).text();
-        var PcsToSft = SftInAPcs*purchasePcsValue;
-        var boxToSft = purchaseBoxValue*sftInABox;
+        var PcsToSft = SftInAPcs*salesPcsValue;
+        var boxToSft = salesBoxValue*sftInABox;
         var TotalSft =PcsToSft+boxToSft;
         var frontTotalSft = parseFloat(PcsToSft+boxToSft).toFixed(2);
-        $('#purchaseQtyValue'+j).val(frontTotalSft);
-        var purchaseTotal = parseFloat(purchasePrice*TotalSft).toFixed(2);
-        $('#purchaseProductTotal'+j).val(purchaseTotal);
+        $('#salesQtyValue'+j).val(frontTotalSft);
+        var salesTotal = parseFloat(salesPrice*TotalSft).toFixed(2);
+        $('#salesProductTotal'+j).val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -710,28 +657,28 @@
         // End Calculate Sub Total Value
     });
     // Quantity Update Calculation
-    $('#purchaseQtyValue'+j).keyup(function(){
+    $('#salesQtyValue'+j).keyup(function(){
         // Get Some data for calculate
         var sftInABox = $('#sftInABox'+j).text();
         var sft = $(this).val();
-        var purchasePrice = $('#purchasePrice'+j).val();
+        var salesPrice = $('#salesPrice'+j).val();
         // Calculation Start
-        var purchaseBox = sft/sftInABox; // Purchase Box
-        $('#purchaseBoxValue'+j).val(sft/sftInABox | 0); // Get purchase Box Integer Value
-        var flotingBox = purchaseBox - Math.floor(purchaseBox); // Seperate Floting Value from Purchase Box
+        var salesBox = sft/sftInABox; // Purchase Box
+        $('#salesBoxValue'+j).val(sft/sftInABox | 0); // Get purchase Box Integer Value
+        var flotingBox = salesBox - Math.floor(salesBox); // Seperate Floting Value from Purchase Box
         var flotingBoxToSft = flotingBox*sftInABox; // Conver Floting Box to Sft
         var SftInAPcs = $('#sftInAPcs'+j).text();
-        var frontPurchasePcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
-        var flotingBox = parseFloat(frontPurchasePcsValue - Math.floor(frontPurchasePcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
+        var frontSalesPcsValue = parseFloat(flotingBoxToSft/SftInAPcs).toFixed(2);
+        var flotingBox = parseFloat(frontSalesPcsValue - Math.floor(frontSalesPcsValue)).toFixed(2); // Seperate Floting Value from Purchase Box
         if(flotingBox != 0.00){
-           $('#purchasePcsValue'+j).css('border-color','red');
+           $('#salesPcsValue'+j).css('border-color','red');
         }else{
-            $('#purchasePcsValue'+j).css('border-color',''); 
+            $('#salesPcsValue'+j).css('border-color',''); 
         }
-        $('#purchasePcsValue'+j).val(frontPurchasePcsValue); // Convert and show floting box to PCS
+        $('#salesPcsValue'+j).val(frontSalesPcsValue); // Convert and show floting box to PCS
         // Show Price In Price Box
-        var purchaseTotal = parseFloat(purchasePrice*sft).toFixed(2);
-        $('#purchaseProductTotal'+j).val(purchaseTotal);
+        var salesTotal = parseFloat(salesPrice*sft).toFixed(2);
+        $('#salesProductTotal'+j).val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -744,11 +691,11 @@
     });
     // Calculate Box Value
     // Price Update Calculation
-    $('#purchasePrice'+j).keyup(function(){
+    $('#salesPrice'+j).keyup(function(){
         var price = $(this).val();
-        var sft = $('#purchaseQtyValue'+j).val();
-        var purchaseTotal = parseFloat(price*sft).toFixed(2);
-        $('#purchaseProductTotal'+j).val(purchaseTotal);
+        var sft = $('#salesQtyValue'+j).val();
+        var salesTotal = parseFloat(price*sft).toFixed(2);
+        $('#salesProductTotal'+j).val(salesTotal);
         // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
@@ -773,7 +720,7 @@
         html += ' <div class="form-group col-md-3">';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group">';
-        html += '<input name="purchase_paid[]" type="text" class="form-control">';
+        html += '<input name="sales_paid[]" type="text" class="form-control">';
         html += '<div class="input-group-append">';
         html += '</div>';
         html += '</div>';

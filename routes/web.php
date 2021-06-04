@@ -94,10 +94,24 @@ Route::GROUP(['prefix' => 'purchase', 'as' => 'purchase.','middleware'=>['auth']
         'as'       => 'product_info'
      ]);
 });
-
-
 // Purchase Route End
+// Sales Route Start
+Route::GROUP(['prefix' => 'sales', 'as' => 'sales.', 'middleware' => ['auth']],function(){
+    Route::GET('/create',[
+        'uses'    => 'SalesController@create',
+        'as'      => 'create'
+    ]);
+    Route::GET('/product-details',[
+        'uses'      => 'SalesController@productDetails',
+        'as'        => 'product_details'
+    ]);
+    Route::GET('/product-info',[
+        'uses'     => 'SalesController@productInfo',
+        'as'       => 'product_info'
+     ]);
+});
 
+// End Sales Route
 // Product Route Start 
 Route::GROUP(['prefix'=>'product', 'as'=>'product.', 'middleware'=>['auth'] ],function(){
     // Product Route Start
