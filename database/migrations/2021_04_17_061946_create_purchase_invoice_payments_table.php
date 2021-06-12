@@ -18,7 +18,7 @@ class CreatePurchaseInvoicePaymentsTable extends Migration
             $table->integer('purchase_invoice_id');
             $table->float('paid',20,2);
             $table->integer('payment_method');
-            $table->float('account_info',20,2);
+            $table->float('account_info');
             $table->text('note')->nullable();
             $table->timestamps();
         });

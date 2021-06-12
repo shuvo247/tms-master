@@ -167,7 +167,7 @@
                                     <div class="form-group col-md-3">
                                     <label for="attributeName" class="col-form-label">Paid</label>
                                         <div id="inputFormRow">
-                                            <input type="number" id="paidAmountValue" name="purchase_paid[]" class="form-control">
+                                            <input type="number" id="paidAmountValue" name="purchase_paid[]" class="form-control paid-total">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -233,14 +233,15 @@
                             </div><div style="margin-bottom: 5px" class="form-group row">
                                 <label style="text-align: right" class="col-md-5 col-form-label">Discount</label>
                                 <div style="padding-right: 0px" class="col-md-3">
-                                    <select style="border-radius: 4px;cursor: pointer" class="form-control totalDiscountType" name="total_discount_type">
-                                        <option style="padding: 10px" value="1" selected="">BDT</option>
-                                        <option style="padding: 10px" value="0">%</option>
+                                    <select style="border-radius: 4px;cursor: pointer" class="form-control totalDiscountType" id="discType" name="total_discount_type">
+                                        <option style="padding: 10px" value="0" selected>%</option>
+                                        <option style="padding: 10px" value="1">BDT</option>
                                     </select>
                                 </div>
 
                                 <div style="padding-left: 0px" class="col-md-4">
-                                    <input id="purchase_total_discount" type="text" class="form-control totalDiscount" name="purchase_total_discount">
+                                    <input type="hidden" value="0.00" id="hidden_disc_amount">
+                                    <input id="purchase_discount_amount" type="text" class="form-control totalDiscount" name="purchase_discount_amount">
                                 </div>
                             </div>
                             <div style="margin-bottom: 5px" class="form-group row">
@@ -261,7 +262,7 @@
                         <div style="margin-bottom: 5px" class="form-group row">
                             <label style="text-align: right" class="col-md-5 col-form-label">Cash Given</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" id="cash_given" name="cash_given" placeholder="Cash Given">
+                                <input type="text" class="form-control" id="cash_given" name="cash_given" placeholder="Cash Given" readonly="">
                             </div>
                         </div>
                         <div style="margin-bottom: 5px" class="form-group row">
@@ -305,6 +306,19 @@
             $('#purchasePrice').val(data.purchase_price);
         });
     });
+    $('#paidAmountValue').keyup(function(){
+        var paidtotal = 0;
+        $('.paid-total').each(function(){
+            paidtotal += parseFloat(this.value);
+        });
+        $('#cash_given').val(paidtotal);
+        var cash = $('#cash_given').val();
+        var total = $('#totalPayable').val();
+        if (cash>total) {
+           var change = (parseFloat(cash) - parseFloat(total)).toFixed(2);
+           $('#change_amount').val(change);
+        }
+    });
     // Calculate Vat Amount
     $('#purchase_vat_amount').keyup(function(){
         var vatType = $('#vatType').val();
@@ -326,7 +340,22 @@
             $('#totalPayable').val(calculateVatPrice);
         }
     });
-
+    $('#purchase_discount_amount').keyup(function(){
+        var discType = $('#discType').val();
+        var discValue = $(this).val();
+        var subTotal = $('#subTotalBdt').val();
+        var vatAmount = $('#hidden_vat_amount').val();
+        var total = (parseFloat(subTotal) + parseFloat(vatAmount)).toFixed(2);
+        if (discType == '0') {
+            var discPrice = ((discValue*total)/100);
+            $('#hidden_disc_amount').val(discPrice);
+            var calculatediscPrice = (parseFloat(total) - parseFloat(discPrice)).toFixed(2);
+            $('#totalPayable').val(calculatediscPrice);
+        }else{
+            var calculatediscPrice = (parseFloat(total) - parseFloat(discValue)).toFixed(2);
+            $('#totalPayable').val(calculatediscPrice);
+        }
+    });
     // End Calculate Vat Amount
     // Purchase Discount Start
     $('#purchaseDiscountValue').keyup(function(){
@@ -356,14 +385,18 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
+
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
         // End Calculate Sub Total Value
     });
     // Purchase Discount End
@@ -387,14 +420,17 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
         // End Calculate Sub Total Value
     });
     // Pcs Update Calculation
@@ -419,14 +455,17 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
         // End Calculate Sub Total Value
     });
     // Quantity Update Calculation
@@ -459,14 +498,17 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0.00);
+        $('#purchase_vat_amount').val(0.00);
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
         // End Calculate Sub Total Value
     });
     // Calculate Box Value
@@ -483,16 +525,19 @@
         });
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
+        $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0.00);
+        $('#purchase_vat_amount').val(0.00);
         // End Calculate Sub Total Value
         // Calculate Total Price
-        var vatValue = $('#hidden_vat_amount').val();
-        var purchaseVatAmount = $('#purchase_vat_amount').val();
-        if(!purchaseVatAmount.length){
-            $('#totalPayable').val(sum);
-        }else{
-            var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
-            $('#totalPayable').val(calculateTotalValue);
-        }
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
         // End Calculate Total Price
     });
     $(document).ready(function() {
@@ -653,7 +698,6 @@
             $('#purchaseProductTotal'+j).val(calculateDiscountValue);
         }
         // End Update Total Purchase Price
-        // Calculate Sub Total Value
         var total = 0;
         $('.total').each(function(){
             total += parseFloat(this.value);
@@ -661,7 +705,17 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
-        // End Calculate Sub Total Value
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
+        // var vatValue = $('#hidden_vat_amount').val();
+        // var purchaseVatAmount = $('#purchase_vat_amount').val();
+        // if(!purchaseVatAmount.length){
+        //     $('#totalPayable').val(sum);
+        // }else{
+        //     var calculateTotalValue = (parseFloat(vatValue) + parseFloat(sum)).toFixed(2);
+        //     $('#totalPayable').val(calculateTotalValue);
+        // }
+
     });
     
     $('#purchaseBoxValue'+j).keyup(function(){
@@ -682,6 +736,8 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
         // End Calculate Sub Total Value
     });
     // Pcs Update Calculation
@@ -707,6 +763,8 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
         // End Calculate Sub Total Value
     });
     // Quantity Update Calculation
@@ -740,6 +798,8 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
         // End Calculate Sub Total Value
     });
     // Calculate Box Value
@@ -757,6 +817,8 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
+        $('#purchase_discount_amount').val(0);
+        $('#purchase_vat_amount').val(0);
         // End Calculate Sub Total Value
     });
        $('.select-2').select2();
@@ -766,14 +828,23 @@
    $(document).on('click', '#removeRow', function () {
        $(this).closest('.recentRow').remove();
    });
+    function addCounter() {     //this function set the counter variable value static.
+    var cust_count = 0;
+        return function() {
+            cust_count++;
+            return cust_count;   //return the incremented value on click
+        };
+    }
+    var countVar = addCounter();
    // Payment Method Multiple Row
     $("#addPaymentRow").click(function () {
+        var j = countVar(); 
         var html = '';
         html += '<div class="recentRow col-12 row" style="margin:0;padding:0">';
         html += ' <div class="form-group col-md-3">';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group">';
-        html += '<input name="purchase_paid[]" type="text" class="form-control">';
+        html += '<input name="purchase_paid[]" id="paidAmountValue'+j+'" type="text" class="form-control paid-total">';
         html += '<div class="input-group-append">';
         html += '</div>';
         html += '</div>';
@@ -821,6 +892,19 @@
         html += '</div>';
         $('#newPaymentRow').append(html);
         $('.select-2').select2();
+        $('#paidAmountValue'+j).keyup(function(){
+        var paidtotal = 0;
+        $('.paid-total').each(function(){
+            paidtotal += parseFloat(this.value);
+        });
+        $('#cash_given').val(paidtotal);
+        var cash = $('#cash_given').val();
+        var total = $('#totalPayable').val();
+        if (cash>total) {
+           var change = (parseFloat(cash) - parseFloat(total)).toFixed(2);
+           $('#change_amount').val(change);
+        }
+    });
     });
     // remove row
     $(document).on('click', '#removeRow', function () {

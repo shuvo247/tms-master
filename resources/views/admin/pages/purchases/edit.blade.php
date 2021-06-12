@@ -309,7 +309,7 @@
                         <div style="margin-bottom: 5px" class="form-group row" >
                                 <label style="text-align: right" class="col-md-5 col-form-label">Sub Total</label>
                                 <div class="col-md-7">
-                                    <input type="text" id="subTotalBdt" name="sub_total" class="form-control">
+                                    <input type="text" id="subTotalBdt" value="{{ $purchase_invoice->sub_total ?? '' }}" name="sub_total" class="form-control">
                                 </div>
                             </div>
                             <div style="margin-bottom: 5px" class="form-group row">
@@ -331,7 +331,6 @@
                                         <option style="padding: 10px" value="0">%</option>
                                     </select>
                                 </div>
-
                                 <div style="padding-left: 0px" class="col-md-4">
                                     <input id="purchase_total_discount" type="text" class="form-control totalDiscount" name="purchase_total_discount">
                                 </div>
@@ -355,19 +354,19 @@
                         <div style="margin-bottom: 5px" class="form-group row">
                             <label style="text-align: right" class="col-md-5 col-form-label">Total Payable</label>
                             <div class="col-md-7">
-                                <input type="text" id="totalPayable" name="total_amount" class="form-control">
+                                <input type="text" id="totalPayable" value="{{ $purchase_invoice->total_payable }}" name="total_amount" class="form-control">
                             </div>
                         </div>
                         <div style="margin-bottom: 5px" class="form-group row">
                             <label style="text-align: right" class="col-md-5 col-form-label">Cash Given</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" id="cash_given" name="cash_given" placeholder="Cash Given">
+                                <input type="text" class="form-control" value="{{ $purchase_invoice->cash_given ?? '' }}" id="cash_given" name="cash_given" placeholder="Cash Given">
                             </div>
                         </div>
                         <div style="margin-bottom: 5px" class="form-group row">
                             <label style="text-align: right" class="col-md-5 col-form-label">Change</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" id="change_amount" name="change_amount" placeholder="Change Amount" readonly="">
+                                <input type="text" class="form-control" value="{{ $purchase_invoice->change ?? '' }}" id="change_amount" name="change_amount" placeholder="Change Amount" readonly="">
                             </div>
                         </div>
                     </div>
@@ -441,6 +440,7 @@
     // Box Update Calculation
     // End Get Product Details
     $('#purchaseBoxValue').keyup(function(){
+        $('#purchasePcsValue').val(0);
         var sftInABox = $('#sftInABox').text();
         var box = $(this).val();
         var purchasePrice = $('#purchasePrice').val();
@@ -458,7 +458,6 @@
         var sum = parseFloat(total).toFixed(2);
         $('#subTotalBdt').val(sum);
         $('#totalPayable').val(sum);
-        // End Calculate Sub Total Value
     });
     // Pcs Update Calculation
     $('#purchasePcsValue').keyup(function(){
@@ -536,41 +535,41 @@
         // End Calculate Sub Total Value
     });
     $(document).ready(function() {
-        // Add Counter for Dynamic Row Product
-        function addCounter() {     //this function set the counter variable value static.
-        var cust_count = '{{count($purchase_invoice->purchase)}}';
-            return function() {
-                cust_count++;
-                return cust_count;   //return the incremented value on click
-            };
-        }
-        var countVar = addCounter();
-    // Purchased Dynamic Row Product
-        // Add Counter for Added Row Product
-        function addNewCounter() {     //this function set the counter variable value static.
-         var cust_count = 0;
-            return function() {
-                cust_count++;
-                return cust_count;   //return the incremented value on click
-            };
-        }
-        var addNewCounter = addNewCounter();
-        var j = addNewCounter();
+    // Add Counter for Dynamic Row Product
+    function addCounter() {     //this function set the counter variable value static.
+    var cust_count = '{{count($purchase_invoice->purchase)}}';
+        return function() {
+            cust_count++;
+            return cust_count;   //return the incremented value on click
+        };
+    }
+    var countVar = addCounter();
+// Purchased Dynamic Row Product
+    // Add Counter for Added Row Product
+    function addNewCounter() {     //this function set the counter variable value static.
+        var cust_count = 0;
+        return function() {
+            cust_count++;
+            return cust_count;   //return the incremented value on click
+        };
+    }
+    var addNewCounter = addNewCounter();
+    var j = addNewCounter();
 
-        $("#selectNewRowProduct"+j).change(function(){
-        var productId = $(this).val();
-        $.get("{{route('purchase.product_details')}}",{
-            product_id : productId,
-            id_value : j
-            },function(data){
-                $('#Stock'+j).empty().html(data);
-            });
-            $.get("{{route('purchase.product_info')}}",{
-            product_id : productId
-            },function(data){
-                $('#purchasePrice'+j).val(data.purchase_price);
-            });
+    $("#selectNewRowProduct"+j).change(function(){
+    var productId = $(this).val();
+    $.get("{{route('purchase.product_details')}}",{
+        product_id : productId,
+        id_value : j
+        },function(data){
+            $('#Stock'+j).empty().html(data);
         });
+        $.get("{{route('purchase.product_info')}}",{
+        product_id : productId
+        },function(data){
+            $('#purchasePrice'+j).val(data.purchase_price);
+        });
+    });
   // Purchase Discount Start
   $('#purchaseDiscountValue').keyup(function(){
         var parcentType = $('#discountType').val();
@@ -603,6 +602,7 @@
     });
 
     $('#purchaseBoxValue'+j).keyup(function(){
+        $('#purchasePcsValue'+j).val(0);
         var sftInABox = $('#sftInABox'+j).text();
         var box = $(this).val();
         var purchasePrice = $('#purchasePrice'+j).val();
@@ -860,6 +860,7 @@ $('#purchasePcsValue'+j).keyup(function(){
     });
     
     $('#purchaseBoxValue'+j).keyup(function(){
+        $('#purchasePcsValue'+j).val(0);
         var sftInABox = $('#sftInABox'+j).text();
         var box = $(this).val();
         var purchasePrice = $('#purchasePrice'+j).val();

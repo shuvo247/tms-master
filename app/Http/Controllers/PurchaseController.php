@@ -83,8 +83,12 @@ class PurchaseController extends Controller
             $purchase_invoice->discount_note = $request->discount_note;
             $purchase_invoice->total_payable = $request->total_amount;
             $purchase_invoice->cash_given = $request->cash_given;
-            $purchase_invoice->change = '223';
-            $purchase_invoice->due = '1';
+            if (isset($request->change_amount)) {
+                $purchase_invoice->change = $request->change_amount;
+            }else{
+                $purchase_invoice->due = $request->total_amount-$request->cash_given;
+            }
+            $purchase_invoice->due = $request->cash_given;
             $purchase_invoice->save();
             $count = count($request->product_id);
             for ($i=0; $i < $count; $i++) { 

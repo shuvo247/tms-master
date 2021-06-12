@@ -21,8 +21,8 @@ class CreateVariableProductStocksTable extends Migration
             $table->string('sku')->nullable();
             $table->float('purchase_price',20,2);
             $table->float('selling_price',20,2);
-            $table->float('sft_in_a_box',20,2)->nullable();
-            $table->float('sft_in_a_pcs',20,2)->nullable();
+            $table->float('sft_in_a_box',20,6)->nullable();
+            $table->float('sft_in_a_pcs',20,6)->nullable();
             $table->float('total_box_sell',20,2)->nullable();
             $table->float('total_pcs_sell',20,2)->nullable();
             $table->float('total_sft_sell',20,2)->nullable();
